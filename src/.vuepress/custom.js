@@ -4,46 +4,46 @@
 
 let mainConfig = {
   vssueConfig: {
-    owner: "Yidadaa",
-    repo: "Issue-Blog-With-Github-Action",
-    clientId: "2783a4b752f56c0ed912",
-    clientSecret: "c8d9116fcade901567ff34aa1fb09216731683a3"
+    owner: "King-of-Infinite-Space",
+    repo: "thoughts",
+    clientId: "95b4afb29a7a4e06dde9",
+    clientSecret: "5c9142fc80525bf8396eeaa0487fd919d75ef0aa"
   },
 
   repoConfig: {
-    owner: "Yidadaa",
-    repo: "Issue-Blog-With-Github-Action",
+    owner: "King-of-Infinite-Space",
+    repo: "King-of-Infinite-Space.github.io",
     pushBranch: "master",
-    email: "yidadaa@qq.com",
-    filterUsers: ['Yidadaa']
+    email: "fcbarcelona.plh@gmail.com",
+    filterUsers: ['King-of-Infinite-Space']
   },
 
-  title: "YiFei Zhang's Blog",
-  description: "在这里了解我的一切，对编程的热爱永不停歇。",
+  title: "the Universe in a Nutshell",
+  description: "no desc",
   customDomain: "",
-  base: "/Issue-Blog-With-Github-Action/",
+  base: "/",
 
   slogan: {
-    main: "有逻辑的灵魂，",
-    sub: "造就有温度的编码。"
+    main: "slogan1",
+    sub: "slogan2"
   },
 
   themeConfig: {
     nav: [
       {
         name: "首页",
-        link: "/Issue-Blog-With-Github-Action"
+        link: "/"
       },
       {
         name: "Github",
-        link: "https://github.com/Yidadaa"
+        link: "https://github.com/King-of-Infinite-Space"
       },
       {
         name: "CV",
-        link: "/Issue-Blog-With-Github-Action/cv.html"
+        link: "/cv.html"
       }
     ],
-    headTitle: ["暮春早夏的月亮", "原是情人的月亮，不比秋冬是诗人的月亮"],
+    headTitle: ["header1", "header2"],
     friendLinks: [
       {
         name: "watercow",
