@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { repoConfig, slogan, base } = require('../src/.vuepress/config')
 
-const { owner, repo } = repoConfig
+const { owner, repo } = vssueConfig // get issue from another repo
 const issueFile = path.resolve(__dirname, './issues.json')
 const cateFile = path.resolve(__dirname, './cates.json')
 
