@@ -47,9 +47,10 @@ module.exports = {
     ]
   ],
   markdown: {
+    breaks: true,
     extendMarkdown: md => {
-      md.use(mk);
-      md.use(ck);
+      md.use(mk); // katex
+      md.use(ck); // checkbox
     }
   }
 };
