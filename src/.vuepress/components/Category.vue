@@ -2,10 +2,10 @@
   <a :href="link">
     <div class="category">
       <div class="category-header">
-        <div class="category-name">{{ name }}</div>
-        <div class="category-count">{{ count }}</div>
+        <div class="category-name">{{ name }}<sub>{{ count }}</sub></div>
+        <!-- <div class="category-count">{{ count }}</div> -->
       </div>
-      <div class="category-desc">{{ desc }}</div>
+      <!-- <div class="category-desc">{{ desc }}</div> -->
     </div>
   </a>
 </template>
@@ -27,25 +27,25 @@ export default {
 @import "../styles/fonts.styl"
 
 .category
-  background white
-  font-size 14px
-  padding 20px 20px
+  background linear-gradient(-60deg, #fbfbfb, transparent)
+  font-size 13px
+  padding 10px
+  /*
   padding-bottom 50px;
   margin-bottom -30px
   box-shadow 0 0 5px rgba(0, 0, 0, 0.1)
+  */
+  border-radius 10px
   line-height 1
-  border-top-right-radius 10px
-  border-top-left-radius 10px
-  transform translateY(0px)
-  transition all ease .15s
-  font-weight bold
+  transition all ease .2s
+  // font-weight bold
   overflow hidden
   color #000
 
   .category-header
     display flex
     align-content center
-    justify-content space-between
+    justify-content center
     position relative
 
   .category-count
@@ -64,9 +64,21 @@ export default {
     color #666
     opacity 0.3
 
+  .category-name
+    sub 
+      font-size x-small
+
 .category:hover
-  transform translateY(-10px)
+  transform scale(1.1,1.1)
   .category-desc
     opacity 1
+
+ 
+@media screen and (max-width 576px)
+  .category
+    margin-right 3px
+
+    .category-header
+      white-space nowrap
 
 </style>
