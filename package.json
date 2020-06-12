@@ -2,8 +2,10 @@
   "dependencies": {
     "@vssue/api-github-v4": "^1.4.0",
     "@vssue/vuepress-plugin-vssue": "^1.4.2",
+    "feed": "^4.2.0",
     "markdown-it-katex": "^2.0.3",
     "markdown-it-task-checkbox": "^1.0.6",
+    "markdown-to-txt": "^1.0.1",
     "medium-zoom": "^1.0.5"
   },
   "devDependencies": {
