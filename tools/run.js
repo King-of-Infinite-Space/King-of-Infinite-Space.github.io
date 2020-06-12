@@ -271,6 +271,9 @@ function generateFeed(issues) {
 
   const feedPath = path.resolve(__dirname, '../src/.vuepress/public/feed')
   fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), () => {})
+  fs.readdirSync(feedPath).forEach(file => {
+    console.log(file);
+  });
 }
 
 async function saveToFile() {
