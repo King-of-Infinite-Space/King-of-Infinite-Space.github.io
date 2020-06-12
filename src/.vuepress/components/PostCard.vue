@@ -43,7 +43,8 @@ primary-color = darken(red, 20)
 
   a
     color black
-
+    font-weight: normal
+    
   .card-header
     display flex
     align-content center

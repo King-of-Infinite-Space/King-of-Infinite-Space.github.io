@@ -45,6 +45,9 @@ export default {
   padding 8px 0
   border-bottom 1px dotted rgba(0, 0, 0, 0.1)
 
+  a
+    font-weight: normal
+
   .left
     .motto
       font-kai()

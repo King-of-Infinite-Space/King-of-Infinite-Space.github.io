@@ -26,6 +26,9 @@ export default {
 <style lang="stylus" scoped>
 @import "../styles/fonts.styl"
 
+a
+  font-weight: normal
+
 .category
   background linear-gradient(-60deg, #fbfbfb, transparent)
   font-size 13px

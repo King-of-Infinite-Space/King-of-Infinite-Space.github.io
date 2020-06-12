@@ -14,7 +14,7 @@ let mainConfig = {
     owner: "King-of-Infinite-Space",
     repo: "King-of-Infinite-Space.github.io",
     pushBranch: "master",
-    email: "plhijk@gmail.com",
+    email: "fcbarcelona.plh@gmail.com",
     filterUsers: ['King-of-Infinite-Space']
   },
 

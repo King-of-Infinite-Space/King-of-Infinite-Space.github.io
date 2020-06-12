@@ -255,7 +255,10 @@ img
   .vssue-button
     font-weight normal
 
-  a
+  :not(.vssue-comment-content) a
+    font-weight normal
+
+  .vssue-comment-content a
     font-weight normal
 
   textarea
