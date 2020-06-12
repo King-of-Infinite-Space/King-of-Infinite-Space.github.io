@@ -252,6 +252,12 @@ img
     border 0
   */
 
+  .vssue-button
+    font-weight normal
+
+  a
+    font-weight normal
+
   textarea
     height 75px
     padding 10px 
