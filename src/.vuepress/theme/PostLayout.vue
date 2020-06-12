@@ -7,12 +7,13 @@
     </div>
 
     <div class="info">
-      <div class="author">{{$frontmatter.author}}</div>
-      <div class="date">{{$frontmatter.date}}</div>
-      <div class="count" v-if="$themeConfig.pageCount">
-        <span id="busuanzi_value_page_pv"></span>
-        <span>views</span>
-      </div>
+      <!-- <span class="author">{{$frontmatter.author}}</span> -->
+      <span class="date">{{$frontmatter.date}}发布</span>
+      <span class="date" v-if="$frontmatter.update !== $frontmatter.date">{{$frontmatter.update}}更新</span>
+      <span class="comments">{{$frontmatter.comments}}评论</span>
+      <span class="count" v-if="$themeConfig.pageCount">
+        <span id="busuanzi_value_page_pv"></span>浏览
+      </span>
     </div>
 
     <div class="post-content">
@@ -55,14 +56,15 @@ $mainColor = darken(red, 20)
   justify-content center
 
 .post-title
-  margin-top 120px
+  margin-top 40px
   color #333
-  font-weight bold
+  // font-weight bold
+  font-song()
   font-size 30px
   position relative
   text-align center
   max-width 80%
-
+/*
 .post-title:before
   content '“'
   position absolute
@@ -76,7 +78,7 @@ $mainColor = darken(red, 20)
   font-size 55px
   color #eee
   right -60px
-
+*/
 .post-content
   word-break break-word
 
@@ -231,13 +233,7 @@ img
     margin 30px 0 60px 0
     font-fang-song()
 
-    .author
-      margin 0 7px
-
-    .date
-      margin 0 7px
-
-    .count
+    > span
       margin 0 7px
 
 // comment
@@ -246,6 +242,7 @@ img
   margin-top 100px
   padding 0
 
+  /*
   .vssue-pagination-per-page,
   .vssue-header-powered-by,
   .vssue-pagination-page
@@ -253,6 +250,11 @@ img
 
   .vssue-new-comment
     border 0
+  */
+
+  textarea
+    height 75px
+    padding 10px 
 
   .vssue-current-user
     line-height 2.5
@@ -272,6 +274,7 @@ img
     max-width 100%
     overflow hidden
     font-size 26px
+    font-hei()
 
   .katex-display
     overflow-x scroll
@@ -280,6 +283,9 @@ img
   .info
     font-hei()
     font-size 14px
+
+    > span
+      margin 0 3px
 
 @media print
   .page
