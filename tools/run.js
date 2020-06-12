@@ -269,7 +269,7 @@ function generateFeed(issues) {
     feedCount = feedCount + 1
   });
 
-  const feedPath = path.resolve(__dirname, '../src/.vuepress/public')
+  const feedPath = path.resolve(__dirname, '../src/.vuepress/public/feed')
   fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), () => {})
 }
 

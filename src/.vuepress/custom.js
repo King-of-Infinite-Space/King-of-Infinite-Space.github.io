@@ -6,15 +6,15 @@ let mainConfig = {
   vssueConfig: {
     owner: "King-of-Infinite-Space",
     repo: "thoughts",
-    clientId: "95b4afb29a7a4e06dde9",
-    clientSecret: "5c9142fc80525bf8396eeaa0487fd919d75ef0aa"
+    clientId: "afa844a3164ad909a4d9",
+    clientSecret: "bc397cda0210dc717a512fa53e8a7522c2a9837c"
   },
 
   repoConfig: {
     owner: "King-of-Infinite-Space",
     repo: "King-of-Infinite-Space.github.io",
     pushBranch: "master",
-    email: "fcbarcelona.plh@gmail.com",
+    email: "plhijk@gmail.com",
     filterUsers: ['King-of-Infinite-Space']
   },
 
@@ -40,7 +40,7 @@ let mainConfig = {
       },
       {
         name: 'RSS',
-        link: "/feed.atom"
+        link: "/feed/feed.atom"
       }
     ],
     headTitle: [],
