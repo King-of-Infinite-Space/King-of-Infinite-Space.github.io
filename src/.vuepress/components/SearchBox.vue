@@ -289,7 +289,7 @@ $accentColor = darken(red, 20)
 @media (max-width: $MQMobile)
   .search-box
     margin-right 0
-    width 100%
+    width 10rem
     padding 0 10px
     box-sizing border-box
 

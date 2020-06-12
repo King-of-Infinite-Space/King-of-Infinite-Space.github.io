@@ -36,23 +36,24 @@ export default {
 @import '../styles/fonts.styl'
 
 .header-wrap
-  border-bottom 1px solid rgba(0, 0, 0, 0.05)
+  // border-bottom 1px solid rgba(0, 0, 0, 0.05)
 
 .header
   display flex
   justify-content space-between
   align-items center
-  padding 20px 0
+  padding 8px 0
+  border-bottom 1px dotted rgba(0, 0, 0, 0.1)
 
   .left
     .motto
       font-kai()
-      font-size 16px
+      font-size 14px
       color black
 
     .nav
-      font-size 16px
-      margin-top 10px
+      font-size 14px
+      // margin-top 10px
       color darken(red, 20)
 
       a.nav-item
@@ -60,8 +61,8 @@ export default {
 
       a.nav-item:not(:last-child):after
         content '/'
-        margin-left 10px
-        margin-right 10px
+        margin-left 5px
+        margin-right 5px
 
       a.nav-item:hover
         color darken(red, 10)
@@ -73,6 +74,7 @@ export default {
     border 0
 
 @media screen and (max-width $MQMobile)
+  /*
   .header
     flex-wrap wrap
 
@@ -82,8 +84,10 @@ export default {
 
   .left, .right
     width 100%
-
+  
   .motto
     margin-bottom 20px
-
+  */
+  input
+    width 
 </style>

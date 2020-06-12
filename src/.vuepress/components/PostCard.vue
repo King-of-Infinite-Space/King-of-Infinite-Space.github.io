@@ -1,14 +1,16 @@
 <template>
   <div class="card">
     <a v-bind:href="link">
-      <div class="card-header">
-        <div class="card-date">{{ date }}</div>
-        <div class="dot"></div>
-        <div class="card-tag">{{ tag }}</div>
-      </div>
       <div class="card-title">{{ title }}</div>
       <div class="card-content">{{ desc }}...</div>
     </a>
+      <div class="card-header">
+        <div class="card-date">{{ update }}</div>
+        <div class="dot"></div>
+        <div class="card-tag">
+          <span v-for="label in tag">{{ label }}</span>
+        </div>
+      </div>   
   </div>
 </template>
 
@@ -19,8 +21,9 @@ export default {
   props: {
     title: String,
     desc: String,
-    tag: String,
+    tag: Array,
     date: String,
+    update: String,
     number: Number,
     link: String
   }
@@ -33,8 +36,10 @@ export default {
 primary-color = darken(red, 20)
 
 .card
-  margin-bottom 40px
   line-height 1.6
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px dotted rgba(0,0,0,0.1)
 
   a
     color black
@@ -42,22 +47,27 @@ primary-color = darken(red, 20)
   .card-header
     display flex
     align-content center
-    font-size 12px
-    font-weight bold
+    font-size 11px
+    // font-weight bold
 
     .card-tag
       color primary-color
 
+      span 
+        margin-right 5px
+
   .card-title
-    font-size 18px
-    font-weight bold
+    font-size 16px
+    // font-weight bold
     line-height 2
     color #363134
     font-hei()
 
   .card-content
-    font-size 14px
+    font-size 12px
     font-hei()
+    padding-bottom 5px
+    padding-top 5px
 
 .card:hover
   cursor pointer
