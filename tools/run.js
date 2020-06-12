@@ -1,11 +1,13 @@
 const github = require('@actions/github')
 const fs = require('fs')
 const path = require('path')
-const { repoConfig, slogan, base } = require('../src/.vuepress/config')
+const { vssueConfig, repoConfig, slogan, base } = require('../src/.vuepress/config')
 
 const { owner, repo } = vssueConfig // get issue from another repo
 const issueFile = path.resolve(__dirname, './issues.json')
 const cateFile = path.resolve(__dirname, './cates.json')
+const Feed = require('feed').Feed;
+const { markdownToTxt } = require('markdown-to-txt');
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -52,6 +54,8 @@ function formatDocument(rawData) {
     const fm = [`layout: PostLayout`,
       `id: ${issue.number}`,
       `date: ${fmtDate(issue.created_at)}`,
+      `update: ${fmtDate(issue.updated_at)}`,
+      `comments: ${issue.comments}`,
       `author: ${issue.user.login}`
     ].join('\n')
     const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
@@ -70,9 +74,12 @@ function processPost(data) {
   const postsData = data.map(issue => {
     return {
       title: issue.title,
-      desc: issue.body.slice(0, 200),
-      tag: issue.milestone ? issue.milestone.title : '',
+      desc: markdownToTxt(issue.body.slice(0, 200)).slice(0,100),
+      tag: issue.labels ? Array.from(issue.labels, x => x.name) : [],
       date: fmtDate(issue.created_at),
+      update: fmtDate(issue.updated_at),
+      updated_at: issue.updated_at,
+      created_at: issue.created_at,
       number: issue.number,
       link: `${base}posts/${issue.number}.html`
     }
@@ -92,10 +99,11 @@ function processCategory(rawData) {
 
   const mData = data.map(m => {
     return {
-      name: m.title,
-      count: m.open_issues,
+      name: m.name,
+      // count: m.open_issues,
+      color: m.color,
       desc: m.description,
-      link: `${base}categories/${m.title}.html`
+      link: `${base}categories/${m.name}.html`
     }
   })
 
@@ -108,7 +116,7 @@ async function download() {
   log('[download] requesting issues')
   try {
     let data = await tools.issues.listForRepo({
-      owner, repo
+      owner, repo, sort: 'updated'
     })
 
     // filter issues
@@ -130,7 +138,7 @@ async function download() {
 
   log('[download] requesting milestones')
   try {
-    const cates = await tools.issues.listMilestonesForRepo({
+    const cates = await tools.issues.listLabelsForRepo({
       owner, repo
     })
 
@@ -151,7 +159,39 @@ async function download() {
  */
 function writeHomePageReadMe(issues, milestones) {
   const postsData = processPost(issues)
-  const mData = processCategory(milestones)
+  let mData = processCategory(milestones)
+
+  // group issues by milestone
+  let issuesGounpByMs = {}
+  issues.forEach(issue => {
+    if (!issue.labels) return
+    issue.labels.forEach(label => {
+      if (!issuesGounpByMs[label.name]) issuesGounpByMs[label.name] = []
+      issuesGounpByMs[label.name].push(issue)
+    })
+  })
+
+  // add count for labels
+  let totalCount = 0
+  mData.forEach(label => {
+    label.count = issuesGounpByMs[label.name].length
+    totalCount = totalCount + label.count
+  })
+  mData = [{
+    name: '全部文章',
+    count: totalCount,
+    desc: `共发布了 ${totalCount} 篇文章。`,
+    link: `/`
+  }].concat(mData)
+
+  // merge issues to milestones
+  milestones = milestones.map(m => {
+    return {
+      ...m,
+      issues: issuesGounpByMs[m.name] || []
+    }
+  })
+
   log('[writing] writing data to ReadMe')
 
   const readMeMeta = JSON.stringify({
@@ -162,23 +202,6 @@ function writeHomePageReadMe(issues, milestones) {
   const readMeText = `---\n${readMeMeta}\n---`
   const readmePath = path.resolve(__dirname, '../src')
   fs.writeFile(path.resolve(readmePath, './README.md'), readMeText, () => {})
-
-  // group issues by milestone
-  let issuesGounpByMs = {}
-  issues.forEach(issue => {
-    if (!issue.milestone) return
-    const { number } = issue.milestone
-    if (!issuesGounpByMs[number]) issuesGounpByMs[number] = []
-    issuesGounpByMs[number].push(issue)
-  })
-
-  // merge issues to milestones
-  milestones = milestones.map(m => {
-    return {
-      ...m,
-      issues: issuesGounpByMs[m.number] || []
-    }
-  })
 
   // write milestones
   const mPath = path.resolve(__dirname, '../src/categories')
@@ -196,22 +219,67 @@ function writeHomePageReadMe(issues, milestones) {
     const issueData = processPost(m.issues)
     const mRawData = {
       slogan: {
-        main: m.title,
+        main: m.name,
         sub: m.description
       },
       posts: issueData,
       categories: mData
+      
     }
     const mText = ['---', JSON.stringify(mRawData), '---'].join('\n')
-    fs.writeFile(path.resolve(mPath, `${m.title}.md`), mText, () => {})
+    fs.writeFile(path.resolve(mPath, `${m.name}.md`), mText, () => {})
   })
+}
+
+/**
+ * Generate RSS feed.
+ * @param {Array} issues issue list
+ */
+function generateFeed(issues) {
+  const postsData = processPost(issues)
+  log('[writing] writing data to feed')
+  const feed = new Feed({
+    title: "the Universe in a Nutshell",
+    description: "Blog by King of Infinite Space",
+    link: "https://king-of-infinite-space.github.io",
+    feedLinks: {
+      atom: "https://king-of-infinite-space.github.io/feed.atom"
+    },
+    author: {
+      name: "King of Infinite Space"
+    }
+  });
+  let feedCount = 0
+  postsData.forEach(post => {
+    if (feedCount < 5) {
+      feed.addItem({
+        title: post.title,
+        id: post.number,
+        link: feed.options.link + post.link,
+        description: post.desc,
+        content: post.desc,
+        author: [
+          {
+            name: "King of Infinite Space"
+          }
+        ],
+        date: new Date(post.updated_at),
+      });
+    }
+    feedCount = feedCount + 1
+  });
+
+  const feedPath = path.resolve(__dirname, '../src/.vuepress/public')
+  fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), () => {})
 }
 
 async function saveToFile() {
   const pData = JSON.parse(fs.readFileSync(issueFile))
+  // log(mData)
   const mData = JSON.parse(fs.readFileSync(cateFile))
   formatDocument(pData.data)
   writeHomePageReadMe(pData.data, mData.data)
+  generateFeed(pData.data)
 }
 
 async function main() {
