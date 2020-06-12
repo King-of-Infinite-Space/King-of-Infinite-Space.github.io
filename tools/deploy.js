@@ -45,6 +45,8 @@ async function main() {
   Git(tmpPath).clone(remote, ['-b', pushBranch], () => {
     console.log('[git] clone done')
     const repoPath = path.resolve(tmpPath, repo)
+    console.log('[repoPath]' + shell.ls(repoPath))
+    console.log('[distPath]' + shell.ls(distPath))
     // delete old files and copy new file
     shell.ls(distPath).forEach(v => {
       let gitFile = path.resolve(repoPath, v)
