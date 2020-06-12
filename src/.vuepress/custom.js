@@ -24,8 +24,8 @@ let mainConfig = {
   base: "/",
 
   slogan: {
-    main: "slogan1",
-    sub: "slogan2"
+    main: "the Universe in a Nutshell",
+    sub: ""
   },
 
   themeConfig: {
@@ -36,29 +36,17 @@ let mainConfig = {
       },
       {
         name: "Github",
-        link: "https://github.com/King-of-Infinite-Space"
+        link: "https://github.com/King-of-Infinite-Space/thoughts/issues"
       },
       {
-        name: "CV",
-        link: "/cv.html"
+        name: 'RSS',
+        link: "/feed.atom"
       }
     ],
-    headTitle: ["header1", "header2"],
+    headTitle: [],
     friendLinks: [
-      {
-        name: "watercow",
-        link: "https://github.com/watercow/watercow.github.io/issues"
-      },
-      {
-        name: "ycjgg",
-        link: "https://ycjgg.github.io"
-      }
     ],
     extraFooters: [
-      {
-        title: "",
-        text: "@ 蜀 ICP 备 19000509 号 - 1"
-      }
     ],
     pageCount: true
   },
