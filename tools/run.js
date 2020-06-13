@@ -274,9 +274,7 @@ function generateFeed(issues) {
       fs.mkdirSync(feedPath, {recursive: true});
     }
   
-  fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), (err) => {
-    if (err) throw err;
-  })
+  fs.writeFileSync(path.resolve(feedPath, './feed.atom'), feed.atom1())
 }
 
 async function saveToFile() {
