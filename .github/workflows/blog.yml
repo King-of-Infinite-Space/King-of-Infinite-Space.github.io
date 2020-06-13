@@ -4,10 +4,7 @@ on:
   push:
     branches:
       - source
-  issues:
-    types: [opened, closed, edited, milestoned, labeled, unlabeled, reopened, demilestoned]
-  issue_comment:
-    types: [created, edited]
+  repository_dispatch:
 
 jobs:
   build:
