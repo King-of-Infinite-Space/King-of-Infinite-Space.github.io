@@ -270,8 +270,8 @@ function generateFeed(issues) {
   });
 
   const feedPath = path.resolve(__dirname, '../src/.vuepress/public/feed')
-  if (!fs.existsSync(path)){
-      fs.mkdirSync(path, {recursive: true});
+  if (!fs.existsSync(feedPath)){
+      fs.mkdirSync(feedPath, {recursive: true});
     }
   
   fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), (err) => {
