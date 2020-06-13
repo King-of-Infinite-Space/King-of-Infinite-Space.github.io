@@ -270,13 +270,13 @@ function generateFeed(issues) {
   });
 
   const feedPath = path.resolve(__dirname, '../src/.vuepress/public/feed')
-  if (!fs.existsSync(feedPath)){
-    fs.mkdirSync(feedPath);
-  }
-  fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), () => {})
-  fs.readdirSync(feedPath).forEach(file => {
-    console.log(file);
-  });
+  if (!fs.existsSync(path)){
+      fs.mkdirSync(path, {recursive: true});
+    }
+  
+  fs.writeFile(path.resolve(feedPath, './feed.atom'), feed.atom1(), (err) => {
+    if (err) throw err;
+  })
 }
 
 async function saveToFile() {
