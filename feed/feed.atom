@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-06-13T19:30:22.387Z</updated>
+    <updated>2020-06-13T20:42:46.968Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King of Infinite Space</name>
@@ -16,7 +16,38 @@
         <title type="html"><![CDATA[19-20 Football]]></title>
         <id>25</id>
         <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
-        <updated>2020-06-13T02:18:44.000Z</updated>
+        <updated>2020-06-13T20:41:40.000Z</updated>
+        <author>
+            <name>King of Infinite Space</name>
+            <email/>
+            <uri/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[测试在Github Issues上写博客]]></title>
+        <id>1</id>
+        <link href="https://king-of-infinite-space.github.io/posts/1.html"/>
+        <updated>2020-06-13T19:37:15.000Z</updated>
+        <summary type="html"><![CDATA[找个地方写写东西记录想法的需求由来已久。主要需求如下：
+操作便捷
+用户有自主权
+运营稳定
+比较开放
+功能完善，支持分类、搜索等
+最好支持记录零碎想法（类似“微博”）
+最好支持多平台
+最好界面简洁美观
+]]></summary>
+        <content type="html"><![CDATA[找个地方写写东西记录想法的需求由来已久。主要需求如下：
+操作便捷
+用户有自主权
+运营稳定
+比较开放
+功能完善，支持分类、搜索等
+最好支持记录零碎想法（类似“微博”）
+最好支持多平台
+最好界面简洁美观
+]]></content>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -52,17 +83,6 @@
         <updated>2020-05-20T22:07:35.000Z</updated>
         <summary type="html"><![CDATA[在Y站看英超挑射吊射集锦的时候看到了96/97赛季南安普顿球员Matt Le Tissier对曼联的一记进球——他在前场中路接球，带球左右闪身摆脱两名后卫，在禁区前沿吊射破门。顺便一提，96年10月的]]></summary>
         <content type="html"><![CDATA[在Y站看英超挑射吊射集锦的时候看到了96/97赛季南安普顿球员Matt Le Tissier对曼联的一记进球——他在前场中路接球，带球左右闪身摆脱两名后卫，在禁区前沿吊射破门。顺便一提，96年10月的]]></content>
-        <author>
-            <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Monologve]]></title>
-        <id>29</id>
-        <link href="https://king-of-infinite-space.github.io/posts/29.html"/>
-        <updated>2020-05-17T18:43:24.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
