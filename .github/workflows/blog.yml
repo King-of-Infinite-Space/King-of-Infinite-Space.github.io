@@ -19,10 +19,10 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-          const runs = github.actions.listWorkflowRuns({
+          const runs = await github.actions.listWorkflowRuns({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            workflow_file_name: 'blog.yml'
+            workflow_id: 'blog.yml'
             })
           const updateTimeStr = runs.workflow_runs[0].updated_at
           const now = new Date()
@@ -32,7 +32,7 @@ jobs:
 
     - uses: actions/checkout@v2
       if: ${{steps.to-update.outputs.result}}
-      
+
     - name: Download Issue and Publish    
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
