@@ -24,7 +24,7 @@ jobs:
             repo: context.repo.repo,
             workflow_id: 'blog.yml'
             })
-          const updateTimeStr = runs.workflow_runs[0].updated_at
+          const updateTimeStr = runs.workflow_runs(0).updated_at
           const now = new Date()
           const last = new Date(updateTimeStr)
           const td = (now - last)/60000 // in minutes
