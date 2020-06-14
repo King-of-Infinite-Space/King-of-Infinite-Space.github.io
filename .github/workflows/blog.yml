@@ -25,7 +25,7 @@ jobs:
             workflow_id: 'blog.yml'
             })
           const runs = rq.data
-          console.log(runs)
+          // console.log(runs)
           const updateTimeStr = runs.workflow_runs[0].updated_at
           const now = new Date()
           const last = new Date(updateTimeStr)
@@ -39,14 +39,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "${{steps.to-update.outputs.result}}"
-        if [${{steps.to-update.outputs.result}}]
-        then
-          npm install vuepress
-          npm install
-          npm run action
-          npm run build
-          npm run deploy
-        else
-          echo "not running because just updated"
-        fi
+        npm install vuepress
+        npm install
+        npm run action
+        npm run build
+        npm run deploy
+      if: ${{steps.to-update.outputs.result}}
