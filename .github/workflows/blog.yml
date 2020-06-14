@@ -19,11 +19,11 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
-          const runs = await github.actions.listWorkflowRuns({
+          const rq = await github.actions.listWorkflowRunsForRepo({
             owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: 'blog.yml'
+            repo: context.repo.repo
             })
+          const runs = rq.data
           console.log(runs)
           const updateTimeStr = runs.workflow_runs[0].updated_at
           const now = new Date()
