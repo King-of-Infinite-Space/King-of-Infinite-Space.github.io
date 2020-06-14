@@ -8,21 +8,41 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
+    - name: check-last-update
+      id: to-update
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const runs = github.actions.listWorkflowRuns({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_file_name: 'blog.yml'
+            })
+          const updateTimeStr = runs.workflow_runs[0].updated_at
+          const now = new Date()
+          const last = new Date(updateTimeStr)
+          const td = (now - last)/60000 // in minutes
+          return (td > 30) || (context.github.event !== 'repository_dispatch')
+
     - name: Download Issue and Publish
+      uses: actions/checkout@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        npm install vuepress
-        npm install
-        npm run action
-        npm run build
-        npm run deploy
+        echo "${{steps.to-update.outputs.result}}"
+        if [${{steps.to-update.outputs.result}}]
+        then
+          npm install vuepress
+          npm install
+          npm run action
+          npm run build
+          npm run deploy
+        else
+          echo "not running because just updated"
+        fi
