@@ -30,8 +30,10 @@ jobs:
           const td = (now - last)/60000 // in minutes
           return (td > 30) || (context.github.event !== 'repository_dispatch')
 
-    - name: Download Issue and Publish
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      if: ${{steps.to-update.outputs.result}}
+      
+    - name: Download Issue and Publish    
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
