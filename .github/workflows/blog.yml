@@ -30,7 +30,7 @@ jobs:
           const now = new Date()
           const last = new Date(updateTimeStr)
           const td = (now - last)/60000 // in minutes
-          return (td > 30) || (context.github.event !== 'repository_dispatch')
+          return (td > 30) || (context.eventName !== 'repository_dispatch')
 
     - uses: actions/checkout@v2
       if: ${{steps.to-update.outputs.result}}
