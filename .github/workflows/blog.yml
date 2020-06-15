@@ -1,4 +1,4 @@
-name: CI
+name: build and publish
 
 on:
   push:
@@ -13,28 +13,7 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    - name: check-last-update
-      id: to-update
-      uses: actions/github-script@v2
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const rq = await github.actions.listWorkflowRuns({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: 'blog.yml'
-            })
-          const runs = rq.data
-          // console.log(runs)
-          const updateTimeStr = runs.workflow_runs[0].updated_at
-          const now = new Date()
-          const last = new Date(updateTimeStr)
-          const td = (now - last)/60000 // in minutes
-          return (td > 30) || (context.eventName !== 'repository_dispatch')
-
     - uses: actions/checkout@v2
-      if: ${{steps.to-update.outputs.result}}
-
     - name: Download Issue and Publish    
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,4 +23,3 @@ jobs:
         npm run action
         npm run build
         npm run deploy
-      if: ${{steps.to-update.outputs.result}}
