@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-06-14T23:12:37.855Z</updated>
+    <updated>2020-06-17T23:12:57.177Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King of Infinite Space</name>
@@ -13,10 +13,14 @@
     <link rel="self" href="https://king-of-infinite-space.github.io/feed.atom"/>
     <subtitle>Blog by King of Infinite Space</subtitle>
     <entry>
-        <title type="html"><![CDATA[19-20 Football]]></title>
-        <id>25</id>
-        <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
-        <updated>2020-06-14T23:11:19.000Z</updated>
+        <title type="html"><![CDATA[英超之巅，毫厘之间]]></title>
+        <id>47</id>
+        <link href="https://king-of-infinite-space.github.io/posts/47.html"/>
+        <updated>2020-06-17T23:12:08.000Z</updated>
+        <summary type="html"><![CDATA[前言
+毫无疑问，本赛季的英超冠军将归属利物浦。29轮过后他们收获了27胜1平1负的数据，领先第二名曼城多达22分，堪称无懈可击。他们有望创造英超的最高积分记录（17/18曼城100分）、最大冠亚军分差]]></summary>
+        <content type="html"><![CDATA[前言
+毫无疑问，本赛季的英超冠军将归属利物浦。29轮过后他们收获了27胜1平1负的数据，领先第二名曼城多达22分，堪称无懈可击。他们有望创造英超的最高积分记录（17/18曼城100分）、最大冠亚军分差]]></content>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -24,10 +28,10 @@
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[文字游戏]]></title>
-        <id>39</id>
-        <link href="https://king-of-infinite-space.github.io/posts/39.html"/>
-        <updated>2020-06-14T16:18:13.000Z</updated>
+        <title type="html"><![CDATA[19-20 Football]]></title>
+        <id>25</id>
+        <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
+        <updated>2020-06-17T20:36:07.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -38,7 +42,7 @@
         <title type="html"><![CDATA[2020 | 2]]></title>
         <id>45</id>
         <link href="https://king-of-infinite-space.github.io/posts/45.html"/>
-        <updated>2020-06-14T04:01:04.000Z</updated>
+        <updated>2020-06-16T05:07:58.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -46,29 +50,13 @@
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[测试在Github Issues上写博客]]></title>
-        <id>1</id>
-        <link href="https://king-of-infinite-space.github.io/posts/1.html"/>
-        <updated>2020-06-13T19:37:15.000Z</updated>
-        <summary type="html"><![CDATA[找个地方写写东西记录想法的需求由来已久。主要需求如下：
-操作便捷
-用户有自主权
-运营稳定
-比较开放
-功能完善，支持分类、搜索等
-最好支持记录零碎想法（类似“微博”）
-最好支持多平台
-最好界面简洁美观
+        <title type="html"><![CDATA[望文生义]]></title>
+        <id>5</id>
+        <link href="https://king-of-infinite-space.github.io/posts/5.html"/>
+        <updated>2020-06-16T05:00:00.000Z</updated>
+        <summary type="html"><![CDATA[关于语言、文字、词语。(当然少不了文字游戏）
 ]]></summary>
-        <content type="html"><![CDATA[找个地方写写东西记录想法的需求由来已久。主要需求如下：
-操作便捷
-用户有自主权
-运营稳定
-比较开放
-功能完善，支持分类、搜索等
-最好支持记录零碎想法（类似“微博”）
-最好支持多平台
-最好界面简洁美观
+        <content type="html"><![CDATA[关于语言、文字、词语。(当然少不了文字游戏）
 ]]></content>
         <author>
             <name>King of Infinite Space</name>
@@ -77,10 +65,10 @@
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[文娱评论]]></title>
-        <id>48</id>
-        <link href="https://king-of-infinite-space.github.io/posts/48.html"/>
-        <updated>2020-05-23T16:31:51.000Z</updated>
+        <title type="html"><![CDATA[咬文嚼字]]></title>
+        <id>40</id>
+        <link href="https://king-of-infinite-space.github.io/posts/40.html"/>
+        <updated>2020-06-16T03:33:47.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
