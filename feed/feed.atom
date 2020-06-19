@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-06-18T02:09:29.996Z</updated>
+    <updated>2020-06-19T00:15:43.503Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King of Infinite Space</name>
@@ -13,10 +13,10 @@
     <link rel="self" href="https://king-of-infinite-space.github.io/feed.atom"/>
     <subtitle>Blog by King of Infinite Space</subtitle>
     <entry>
-        <title type="html"><![CDATA[19-20 Football]]></title>
-        <id>25</id>
-        <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
-        <updated>2020-06-18T02:08:15.000Z</updated>
+        <title type="html"><![CDATA[文字游戏]]></title>
+        <id>39</id>
+        <link href="https://king-of-infinite-space.github.io/posts/39.html"/>
+        <updated>2020-06-19T00:14:32.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -27,11 +27,22 @@
         <title type="html"><![CDATA[英超之巅，毫厘之间]]></title>
         <id>47</id>
         <link href="https://king-of-infinite-space.github.io/posts/47.html"/>
-        <updated>2020-06-17T23:12:08.000Z</updated>
+        <updated>2020-06-18T02:19:23.000Z</updated>
         <summary type="html"><![CDATA[前言
 毫无疑问，本赛季的英超冠军将归属利物浦。29轮过后他们收获了27胜1平1负的数据，领先第二名曼城多达22分，堪称无懈可击。他们有望创造英超的最高积分记录（17/18曼城100分）、最大冠亚军分差]]></summary>
         <content type="html"><![CDATA[前言
 毫无疑问，本赛季的英超冠军将归属利物浦。29轮过后他们收获了27胜1平1负的数据，领先第二名曼城多达22分，堪称无懈可击。他们有望创造英超的最高积分记录（17/18曼城100分）、最大冠亚军分差]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+            <email/>
+            <uri/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[19-20 Football]]></title>
+        <id>25</id>
+        <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
+        <updated>2020-06-18T02:08:15.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -58,17 +69,6 @@
 ]]></summary>
         <content type="html"><![CDATA[关于语言、文字、词语。(当然少不了文字游戏）
 ]]></content>
-        <author>
-            <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[咬文嚼字]]></title>
-        <id>40</id>
-        <link href="https://king-of-infinite-space.github.io/posts/40.html"/>
-        <updated>2020-06-16T03:33:47.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
