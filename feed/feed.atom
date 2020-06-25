@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-06-25T21:12:41.922Z</updated>
+    <updated>2020-06-25T22:23:20.385Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King of Infinite Space</name>
@@ -16,7 +16,7 @@
         <title type="html"><![CDATA[19-20 Football]]></title>
         <id>25</id>
         <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
-        <updated>2020-06-25T21:11:32.000Z</updated>
+        <updated>2020-06-25T22:23:13.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -27,7 +27,18 @@
         <title type="html"><![CDATA[2020 | 2]]></title>
         <id>45</id>
         <link href="https://king-of-infinite-space.github.io/posts/45.html"/>
-        <updated>2020-06-25T20:15:20.000Z</updated>
+        <updated>2020-06-25T22:22:28.000Z</updated>
+        <author>
+            <name>King of Infinite Space</name>
+            <email/>
+            <uri/>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quotes]]></title>
+        <id>19</id>
+        <link href="https://king-of-infinite-space.github.io/posts/19.html"/>
+        <updated>2020-06-25T22:21:58.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
             <email/>
@@ -54,21 +65,6 @@
         <id>39</id>
         <link href="https://king-of-infinite-space.github.io/posts/39.html"/>
         <updated>2020-06-19T00:14:32.000Z</updated>
-        <author>
-            <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[望文生义]]></title>
-        <id>5</id>
-        <link href="https://king-of-infinite-space.github.io/posts/5.html"/>
-        <updated>2020-06-16T05:00:00.000Z</updated>
-        <summary type="html"><![CDATA[关于语言、文字、词语。(当然少不了文字游戏）
-]]></summary>
-        <content type="html"><![CDATA[关于语言、文字、词语。(当然少不了文字游戏）
-]]></content>
         <author>
             <name>King of Infinite Space</name>
             <email/>
