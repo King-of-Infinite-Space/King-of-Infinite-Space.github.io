@@ -174,7 +174,8 @@ function writeHomePageReadMe(issues, milestones) {
   // add count for labels
   let totalCount = 0
   mData.forEach(label => {
-    label.count = issuesGounpByMs[label.name].length
+    label.count = issuesGounpByMs[label.name] ? issuesGounpByMs[label.name].length : 0
+    // BUG FIX: don't know why somethimes it is undefined
     totalCount = totalCount + label.count
   })
   mData = [{
@@ -243,7 +244,7 @@ function generateFeed(issues) {
     description: "Blog by King of Infinite Space",
     link: "https://king-of-infinite-space.github.io",
     feedLinks: {
-      atom: "https://king-of-infinite-space.github.io/feed.atom"
+      atom: "https://king-of-infinite-space.github.io/feed/feed.atom"
     },
     author: {
       name: "King of Infinite Space"

@@ -9,3 +9,4 @@ tmp
 .idea
 /.yarn/
 **/.DS_store
+**/Icon[]
