@@ -2,69 +2,83 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-07-04T19:42:00.129Z</updated>
+    <updated>2020-10-14T18:39:45.917Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King of Infinite Space</name>
-        <email/>
-        <uri/>
     </author>
     <link rel="alternate" href="https://king-of-infinite-space.github.io"/>
-    <link rel="self" href="https://king-of-infinite-space.github.io/feed.atom"/>
+    <link rel="self" href="https://king-of-infinite-space.github.io/feed/feed.atom"/>
     <subtitle>Blog by King of Infinite Space</subtitle>
     <entry>
-        <title type="html"><![CDATA[2020 | 3]]></title>
-        <id>51</id>
-        <link href="https://king-of-infinite-space.github.io/posts/51.html"/>
-        <updated>2020-07-04T19:40:46.000Z</updated>
+        <title type="html"><![CDATA[书影音游]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/48.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/48.html"/>
+        <updated>2020-10-14T02:13:15.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[19-20 Football]]></title>
-        <id>25</id>
-        <link href="https://king-of-infinite-space.github.io/posts/25.html"/>
-        <updated>2020-07-03T20:22:12.000Z</updated>
+        <title type="html"><![CDATA[从国语粤语声调说起]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/55.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/55.html"/>
+        <updated>2020-10-14T01:28:32.000Z</updated>
+        <summary type="html"><![CDATA[最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。网上冲浪总是被一波带走，然后摸条大鱼回来。
+五度标记法
+普通话有4个声调，每个声调的音高变化]]></summary>
+        <content type="html"><![CDATA[最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。网上冲浪总是被一波带走，然后摸条大鱼回来。
+五度标记法
+普通话有4个声调，每个声调的音高变化]]></content>
         <author>
             <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[咬文嚼字]]></title>
-        <id>40</id>
-        <link href="https://king-of-infinite-space.github.io/posts/40.html"/>
-        <updated>2020-07-02T21:16:08.000Z</updated>
+        <title type="html"><![CDATA[君の名は]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/24.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/24.html"/>
+        <updated>2020-10-14T00:40:50.000Z</updated>
+        <summary type="html"><![CDATA[本文讨论中文人名的罗马化，与某部电影并无关系。
+你叫什么名字？陈大文（化名）。姓陈，名大文。简单明了。
+What&amp#39;s your name? Emm...
+作为PRC公民，按照惯例应该回答]]></summary>
+        <content type="html"><![CDATA[本文讨论中文人名的罗马化，与某部电影并无关系。
+你叫什么名字？陈大文（化名）。姓陈，名大文。简单明了。
+What&amp#39;s your name? Emm...
+作为PRC公民，按照惯例应该回答]]></content>
         <author>
             <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[2020 | 2]]></title>
-        <id>45</id>
-        <link href="https://king-of-infinite-space.github.io/posts/45.html"/>
-        <updated>2020-06-28T23:57:09.000Z</updated>
+        <title type="html"><![CDATA[文字游戏]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/39.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/39.html"/>
+        <updated>2020-10-12T16:17:11.000Z</updated>
         <author>
             <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Quotes]]></title>
-        <id>19</id>
-        <link href="https://king-of-infinite-space.github.io/posts/19.html"/>
-        <updated>2020-06-25T22:21:58.000Z</updated>
+        <title type="html"><![CDATA[VAR: has it gone too far?]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/26.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/26.html"/>
+        <updated>2020-10-12T16:16:07.000Z</updated>
+        <summary type="html"><![CDATA[新赛季的英超启用了VAR。然而仅一月有余，就出现了至少两起毫厘之间的越位判罚：
+第一轮西汉姆vs曼城，斯特林的越位
+
+刚刚结束的第六轮，孙兴慜的越位
+&amplt;img width
+]]></summary>
+        <content type="html"><![CDATA[新赛季的英超启用了VAR。然而仅一月有余，就出现了至少两起毫厘之间的越位判罚：
+第一轮西汉姆vs曼城，斯特林的越位
+
+刚刚结束的第六轮，孙兴慜的越位
+&amplt;img width
+]]></content>
         <author>
             <name>King of Infinite Space</name>
-            <email/>
-            <uri/>
         </author>
     </entry>
 </feed>
