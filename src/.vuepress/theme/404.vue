@@ -59,7 +59,6 @@ export default {
   .text
     font-size 20vh
     color rgba(0, 0, 0, 0.4)
-    font-weight bolder
     width auto
     text-align center
 
