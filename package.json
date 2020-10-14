@@ -19,8 +19,8 @@
   "scripts": {
     "dev": "vuepress dev ./src",
     "build": "vuepress build ./src --dest ./dist",
-    "local": "cross-env NODE_ENV=local node ./tools/run.js --unhandled-rejections=strict",
-    "action": "cross-env NODE_ENV=action node ./tools/run.js --unhandled-rejections=strict",
+    "local": "cross-env NODE_ENV=local node --unhandled-rejections=strict ./tools/run.js",
+    "action": "cross-env NODE_ENV=action node --unhandled-rejections=strict ./tools/run.js",
     "push": "cross-env NODE_ENV=local node ./tools/deploy.js",
     "deploy": "cross-env NODE_ENV=action node ./tools/deploy.js",
     "test-env": "cross-env custom={\\\"base\\\":\\\"/\\\"} vuepress dev ./src"

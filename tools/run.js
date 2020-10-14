@@ -255,7 +255,7 @@ function generateFeed(issues) {
     if (feedCount < 5) {
       feed.addItem({
         title: post.title,
-        id: post.number,
+        // id: post.number,
         link: feed.options.link + post.link,
         description: post.desc,
         content: post.desc,
