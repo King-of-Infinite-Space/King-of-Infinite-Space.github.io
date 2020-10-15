@@ -117,7 +117,7 @@ async function download() {
   
   try {
     // need to use pagination because by default only first 30 items are listed
-    let data = github.paginate("GET /repos/:owner/:repo/issues", {
+    let data = tools.paginate("GET /repos/:owner/:repo/issues", {
     owner, repo, sort: 'updated'}).then(issues => {return issues});
     
     // let data = await tools.issues.listForRepo({
