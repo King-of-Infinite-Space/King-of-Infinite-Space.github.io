@@ -114,17 +114,22 @@ async function download() {
   const tools = new github.GitHub(token)
 
   log('[download] requesting issues')
+  
   try {
-    let data = await tools.issues.listForRepo({
-      owner, repo, sort: 'updated'
-    })
+    // need to use pagination because by default only first 30 items are listed
+    let data = github.paginate("GET /repos/:owner/:repo/issues", {
+    owner, repo, sort: 'updated'}).then(issues => {return issues});
+    
+    // let data = await tools.issues.listForRepo({
+    //   owner, repo, sort: 'updated'
+    // })
 
     // filter issues
     if (repoConfig.filterUsers && repoConfig.filterUsers.length > 0) {
       const filterUsers = repoConfig.filterUsers
-      const count = data.data.length
-      data.data = data.data.filter(v => filterUsers.includes(v.user.login))
-      log(`[filter] filtered ${count - data.data.length} issues`)
+      const count = data.length
+      data = data.filter(v => filterUsers.includes(v.user.login))
+      log(`[filter] filtered ${count - data.length} issues`)
     }
 
     log('[download] writing Issues Data')
@@ -136,13 +141,13 @@ async function download() {
     return
   }
 
-  log('[download] requesting milestones')
+  log('[download] requesting labels')
   try {
     const cates = await tools.issues.listLabelsForRepo({
       owner, repo
     })
 
-    log('[download] writing milestones data')
+    log('[download] writing labels data')
     const mData = JSON.stringify(cates)
     fs.writeFileSync(cateFile, mData)
     log('[download] done')
