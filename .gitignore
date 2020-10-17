@@ -9,7 +9,7 @@ tmp
 .idea
 /.yarn/
 **/.DS_store
-**/Icon[]
 test.js
-tools/config.template.js
+*.md
+Icon[]
 tools/config.template.js
