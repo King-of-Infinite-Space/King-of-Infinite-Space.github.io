@@ -17,7 +17,7 @@ let mainConfig = {
     email: "fcbarcelona.plh@gmail.com",
     filterUsers: ['King-of-Infinite-Space']
   },
-
+  fullUrl: "https://King-of-Infinite-Space.github.io",
   title: "the Universe in a Nutshell",
   description: "no desc",
   customDomain: "",
@@ -40,7 +40,7 @@ let mainConfig = {
       },
       {
         name: 'RSS',
-        link: "/feed/feed.atom"
+        link: "/feed.atom"
       }
     ],
     headTitle: [],

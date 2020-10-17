@@ -65,7 +65,10 @@ function formatDocument(rawData) {
     fn = uslug(fmtDate(issue.created_at).slice(0,-2)+'-'+issue.title)
     // yyyy-mm-title
     const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
-    fs.writeFile(path.resolve(postPath, `./${fn}.md`), markdownText, () => {})
+    if (!fs.existsSync(postPath)){
+      fs.mkdirSync(postPath);
+    }
+    fs.writeFileSync(path.resolve(postPath, `./${fn}.md`), markdownText, () => {})
   })
 
   log('[post] issues have been written to md files.')
@@ -80,7 +83,7 @@ function processPost(data) {
   const postsData = data.map(issue => {
     return {
       title: issue.title,
-      desc: markdownToTxt(stripHtml(issue.body.slice(0, 200)),{escapeHtml: false}).slice(0,100),
+      desc: markdownToTxt(stripHtml(issue.body.slice(0, 300)).result,{escapeHtml: false}).slice(0,100),
       tag: issue.labels ? Array.from(issue.labels, x => x.name) : [],
       date: fmtDate(issue.created_at),
       update: fmtDate(issue.updated_at),
@@ -109,7 +112,7 @@ function processCategory(rawData) {
       // count: m.open_issues,
       color: m.color,
       desc: m.description,
-      link: `${base}categories/${m.name}.html`
+      link: `${base}tag/${m.name}.html`
     }
   })
 
@@ -214,34 +217,34 @@ function writeHomePageReadMe(issues, milestones) {
   })
   const readMeText = `---\n${readMeMeta}\n---`
   const readmePath = path.resolve(__dirname, '../src')
-  fs.writeFile(path.resolve(readmePath, './README.md'), readMeText, () => {})
+  fs.writeFileSync(path.resolve(readmePath, './README.md'), readMeText, () => {})
 
-  // write milestones
-  const mPath = path.resolve(__dirname, '../src/categories')
-  const files = fs.readdirSync(mPath)
-  // delete old files
-  files.forEach(filename => {
-    if (filename.endsWith('md')) {
-      fs.unlinkSync(path.resolve(mPath, filename), () => {})
-    }
-  })
+  // // write milestones
+  // const mPath = path.resolve(__dirname, '../src/categories')
+  // const files = fs.readdirSync(mPath)
+  // // delete old files
+  // files.forEach(filename => {
+  //   if (filename.endsWith('md')) {
+  //     fs.unlinkSync(path.resolve(mPath, filename), () => {})
+  //   }
+  // })
 
-  log('[writing] writing categories')
-  // write new files
-  milestones.forEach(m => {
-    const issueData = processPost(m.issues)
-    const mRawData = {
-      slogan: {
-        main: m.name,
-        sub: m.description
-      },
-      posts: issueData,
-      categories: mData
+  // log('[writing] writing categories')
+  // // write new files
+  // milestones.forEach(m => {
+  //   const issueData = processPost(m.issues)
+  //   const mRawData = {
+  //     slogan: {
+  //       main: m.name,
+  //       sub: m.description
+  //     },
+  //     posts: issueData,
+  //     categories: mData
       
-    }
-    const mText = ['---', JSON.stringify(mRawData), '---'].join('\n')
-    fs.writeFile(path.resolve(mPath, `${m.name}.md`), mText, () => {})
-  })
+  //   }
+  //   const mText = ['---', JSON.stringify(mRawData), '---'].join('\n')
+  //   fs.writeFile(path.resolve(mPath, `${m.name}.md`), mText, () => {})
+  // })
 }
 
 /**
@@ -291,12 +294,13 @@ function generateFeed(issues) {
 }
 
 async function saveToFile() {
+  // posts
   const pData = JSON.parse(fs.readFileSync(issueFile))
-  // log(mData)
+  // categories
   const mData = JSON.parse(fs.readFileSync(cateFile))
-  formatDocument(pData.data)
-  writeHomePageReadMe(pData.data, mData.data)
-  generateFeed(pData.data)
+  formatDocument(pData)
+  writeHomePageReadMe(pData, mData.data) // frontmatter for homepage
+  // generateFeed(pData.data)
 }
 
 async function main() {

@@ -47,14 +47,19 @@ module.exports = {
           itemPermalink: '/post/:year/:month/:slug',
           layout: 'Layout',
           itemLayout: 'PostLayout',
+          pagination: {lengthPerPage: 10,},
         }],
+        feed: {
+          canonical_base: customConfig.fullUrl,
+          },
         frontmatter: [
           {
             id: 'label',
             keys: ['label'],
             path: '/tag/',
             scopeLayout: 'Layout'
-          }
+          },
+          
         ]
       },
       "@vssue/vuepress-plugin-vssue",
