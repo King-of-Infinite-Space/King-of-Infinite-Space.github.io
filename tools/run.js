@@ -8,6 +8,8 @@ const issueFile = path.resolve(__dirname, './issues.json')
 const cateFile = path.resolve(__dirname, './cates.json')
 const Feed = require('feed').Feed;
 const { markdownToTxt } = require('markdown-to-txt');
+const uslug = require("uslug");
+const stripHtml =require("string-strip-html");
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -46,20 +48,24 @@ function formatDocument(rawData) {
   const data = rawData
   log(`[summary] ${data.length} issues`)
 
-  const postPath = path.resolve(__dirname, '../src/posts')
+  const postPath = path.resolve(__dirname, '../src/_posts')
 
   // process post file
   data.forEach((issue, i) => {
     log(`[processing ${i + 1} of ${data.length}] ${issue.number}.${issue.title}`)
-    const fm = [`layout: PostLayout`,
+    const fm = [
+      //`layout: PostLayout`,
       `id: ${issue.number}`,
       `date: ${fmtDate(issue.created_at)}`,
       `update: ${fmtDate(issue.updated_at)}`,
       `comments: ${issue.comments}`,
-      `author: ${issue.user.login}`
+      `author: ${issue.user.login}`,
+      `label: ${issue.labels.map(l => {return l.name})}`
     ].join('\n')
+    fn = uslug(fmtDate(issue.created_at).slice(0,-2)+'-'+issue.title)
+    // yyyy-mm-title
     const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
-    fs.writeFile(path.resolve(postPath, `./${issue.number}.md`), markdownText, () => {})
+    fs.writeFile(path.resolve(postPath, `./${fn}.md`), markdownText, () => {})
   })
 
   log('[post] issues have been written to md files.')
@@ -74,7 +80,7 @@ function processPost(data) {
   const postsData = data.map(issue => {
     return {
       title: issue.title,
-      desc: markdownToTxt(issue.body.slice(0, 200)).slice(0,100),
+      desc: markdownToTxt(stripHtml(issue.body.slice(0, 200)),{escapeHtml: false}).slice(0,100),
       tag: issue.labels ? Array.from(issue.labels, x => x.name) : [],
       date: fmtDate(issue.created_at),
       update: fmtDate(issue.updated_at),
@@ -117,17 +123,18 @@ async function download() {
   
   try {
     // need to use pagination because by default only first 30 items are listed
-    let data = tools.paginate("GET /repos/:owner/:repo/issues", {
-    owner, repo, sort: 'updated'}).then(issues => {return issues});
+    let data = await tools.paginate("GET /repos/:owner/:repo/issues", {
+    owner, repo, sort: 'updated'})
     
     // let data = await tools.issues.listForRepo({
     //   owner, repo, sort: 'updated'
     // })
-
+    // console.log(data)
     // filter issues
     if (repoConfig.filterUsers && repoConfig.filterUsers.length > 0) {
       const filterUsers = repoConfig.filterUsers
       const count = data.length
+      
       data = data.filter(v => filterUsers.includes(v.user.login))
       log(`[filter] filtered ${count - data.length} issues`)
     }

@@ -38,7 +38,25 @@ module.exports = {
   // dev config
   host: "0.0.0.0",
   plugins: [
-    [
+    [ 
+      "@vuepress/blog", {
+        directories: [{
+          id: 'post',
+          dirname: '_posts',
+          path: '/post/',
+          itemPermalink: '/post/:year/:month/:slug',
+          layout: 'Layout',
+          itemLayout: 'PostLayout',
+        }],
+        frontmatter: [
+          {
+            id: 'label',
+            keys: ['label'],
+            path: '/tag/',
+            scopeLayout: 'Layout'
+          }
+        ]
+      },
       "@vssue/vuepress-plugin-vssue",
       {
         platform: "github-v4",

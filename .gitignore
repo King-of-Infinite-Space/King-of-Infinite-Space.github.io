@@ -10,3 +10,6 @@ tmp
 /.yarn/
 **/.DS_store
 **/Icon[]
+test.js
+tools/config.template.js
+tools/config.template.js
