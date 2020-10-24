@@ -14,10 +14,26 @@
       </div>
     </div>
     <div class="content">
-      <div class="posts">
+      <div class="posts articles">
         <LoadingCard />
-        <!-- 这里使用`v-if="!posts.length"`会使 build 出的页面报错，不知道原因 -->
-        <PostCard v-for="(post, index) in posts" v-bind:key="index"
+        <PostCard v-for="(post, index) in articles_shown" v-bind:key="index"
+          v-bind:title="post.title" v-bind:desc="post.desc"
+          v-bind:tag="post.tag" v-bind:date="post.date" v-bind:update="post.update"
+          v-bind:number="post.number" v-bind:link="post.link"/>
+      </div>
+      <div class="pages article-pages">
+        <span class="page-button left" @click="change_page(-1,articles_pn,articles_max)">&#60;</span>
+        <span class="page-number">{{articles_pn}} / {{articles_max}}</span>
+        <span class="page-button right" @click="change_page(1,articles_pn,articles_max)">&#62;</span>
+      </div>
+      <div class="pages moment-pages">
+        <span class="page-button left" @click="change_page(-1,moments_pn,moments_max)">&#60;</span>
+        <span class="page-number">{{moments_pn}} / {{moments_max}}</span>
+        <span class="page-button right" @click="change_page(1,moments_pn,moments_max)">&#62;</span>
+      </div>
+      <div class="posts moments">
+        <LoadingCard />
+        <PostCard v-for="(post, index) in moments_shown" v-bind:key="index"
           v-bind:title="post.title" v-bind:desc="post.desc"
           v-bind:tag="post.tag" v-bind:date="post.date" v-bind:update="post.update"
           v-bind:number="post.number" v-bind:link="post.link"/>
@@ -25,7 +41,8 @@
       <div class="side">
         <div class="side-category">
           <LoadingCategory />
-          <Category v-for="(category, index) in categories" v-bind:key="index" 
+          <Category v-for="(category, index) in labels" v-bind:key="index" 
+            v-bind:class="{selected: labels_selected.includes(category)}"
             v-bind:name="category.name" v-bind:count="category.count"
             v-bind:desc="category.desc" v-bind:link="category.link"/>
         </div>
@@ -41,8 +58,14 @@
 export default {
   data () {
     return {
-      posts: [],
-      categories: []
+      articles: [],
+      moments: [],
+      labels: [],
+      labels_selected: [],
+      moments_pp: 5,
+      articles_pp: 10,
+      moments_pn: 1,
+      articles_pn: 1,
     }
   },
 
@@ -55,9 +78,68 @@ export default {
   },
 
   mounted () {
-    this.posts = this.$frontmatter.posts
-    this.categories = this.$frontmatter.categories.sort((a,b) => b.count - a.count)
+    this.$frontmatter.posts.forEach(p => {
+      if (p.milestone) {
+        this.moments.push(p) // already sorted by update date
+      } 
+      else {
+        this.articles.push(p)
+      }
+    })
+    this.articles.sort((a,b) => parseInt(b.created_at.replaceAll('-','')) - parseInt(a.created_at.replaceAll('-','')))
+    this.labels = this.$frontmatter.categories.sort((a,b) => b.count - a.count)
+  },
+
+  computed: {
+    moments_max: function(){
+      return Math.ceil(this.moments_selected.length / this.moments_pp)},
+    articles_max: function(){
+      return Math.ceil(this.articles_selected.length / this.articles_pp)},
+    moments_selected: function(){
+      return this.moments.filter(item => {
+        return this.have_labels(item, this.labels_selected)
+      })
+    },
+    moments_shown: function () {
+      start = (this.moments_pn - 1) * this.moments_pp + 1
+      end = this.moments_pn * this.moments_pp
+      return this.moments_selected.slice(start-1,end)
+    },
+    articles_selected: function(){
+      return this.articles.filter(item => {
+        return this.have_labels(item, this.labels_selected)
+      })
+    },
+    articles_shown: function () {
+      start = (this.articles_pn - 1) * this.articles_pp + 1
+      end = this.articles_pn * this.articles_pp
+      return this.articles_selected.slice(start-1,end)
+    },
+  },
+
+  methods: {
+    select_label(label) {
+      const idx = this.labels_selected.indexOf(label)
+      if (idx > -1) {
+        this.labels_selected.splice(idx, 1);
+      } else {
+        this.labels_selected.push(label)
+      }
+    },
+    change_page(c, pn, pmax){
+      if (c < 0) { return Math.max(pn+c,1)}
+      else { return Math.min(pn+c, pmax)}
+    },
+    moments_change_page (c) { this.moments_pn = this.change_page(c, this.moments_pn, this.moments_max)},
+    articles_change_page (c) { this.articles_pn = this.change_page(c, this.articles_pn, this.articles_max)},
+    have_labels (issue, labels) {
+      labels.forEach(item => {
+        if (!issue.label.includes(item)) return false
+      })
+      return true
+    }
   }
+
 }
 </script>
 
@@ -144,7 +226,10 @@ export default {
     margin-left 20px
 
   .side-category
-    padding 0 20px
+    padding 0 
+    
+    .category selected
+      border 2px solid blue
 
   .side-bag
     box-shadow 0 -3px 2px rgba(0, 0, 0, 0.03)
@@ -153,7 +238,7 @@ export default {
     background white
     border-bottom-left-radius 10px
     border-bottom-right-radius 10px
-    border-top 0
+    border-top 
 
 @media screen and (max-width 576px)
   .banner

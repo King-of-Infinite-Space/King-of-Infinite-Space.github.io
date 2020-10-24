@@ -7,7 +7,9 @@ const { owner, repo } = vssueConfig // get issue from another repo
 const issueFile = path.resolve(__dirname, './issues.json')
 const cateFile = path.resolve(__dirname, './cates.json')
 const Feed = require('feed').Feed;
-const { markdownToTxt } = require('markdown-to-txt');
+const { markdownToTxt } = require('markdown-to-txt'); 
+const uslug = require("uslug");
+const stripHtml =require("string-strip-html");
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -35,7 +37,7 @@ function fmtDate(date) {
   const year = theDate.getFullYear()
   const month = (theDate.getMonth() + 1).toString().padStart(2, '0')
   const day = theDate.getDate().toString().padStart(2, '0')
-  return [year, month, day].join('/')
+  return [year, month, day].join('-')
 }
 
 /**
@@ -46,20 +48,29 @@ function formatDocument(rawData) {
   const data = rawData
   log(`[summary] ${data.length} issues`)
 
-  const postPath = path.resolve(__dirname, '../src/posts')
+  const postPath = path.resolve(__dirname, '../src/post')
 
   // process post file
   data.forEach((issue, i) => {
     log(`[processing ${i + 1} of ${data.length}] ${issue.number}.${issue.title}`)
-    const fm = [`layout: PostLayout`,
+    ms = issue.milestone ? issue.milestone.title : ''
+    const fm = [
+      `layout: PostLayout`,
       `id: ${issue.number}`,
       `date: ${fmtDate(issue.created_at)}`,
       `update: ${fmtDate(issue.updated_at)}`,
       `comments: ${issue.comments}`,
-      `author: ${issue.user.login}`
+      `author: ${issue.user.login}`,
+      `milestone: ${ms}`,
+      `label: ${issue.labels.map(l => {return l.name})}`
     ].join('\n')
+    fn = uslug(fmtDate(issue.created_at).slice(0,-2)+'-'+issue.title)
+    // yyyy-mm-title
     const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
-    fs.writeFile(path.resolve(postPath, `./${issue.number}.md`), markdownText, () => {})
+    if (!fs.existsSync(postPath)){
+      fs.mkdirSync(postPath);
+    }
+    fs.writeFileSync(path.resolve(postPath, `./${fn}.md`), markdownText, () => {})
   })
 
   log('[post] issues have been written to md files.')
@@ -74,8 +85,9 @@ function processPost(data) {
   const postsData = data.map(issue => {
     return {
       title: issue.title,
-      desc: markdownToTxt(issue.body.slice(0, 200)).slice(0,100),
-      tag: issue.labels ? Array.from(issue.labels, x => x.name) : [],
+      desc: markdownToTxt(stripHtml(issue.body.slice(0, 300)).result,{escapeHtml: false}).slice(0,100),
+      label: issue.labels ? Array.from(issue.labels, x => x.name) : [],
+      milestone: issue.milestone ? issue.milestone.title : '',
       date: fmtDate(issue.created_at),
       update: fmtDate(issue.updated_at),
       updated_at: issue.updated_at,
@@ -90,7 +102,7 @@ function processPost(data) {
 
 /**
  * Process category data.
- * @param {Array} rawData raw request data of milestones
+ * @param {Array} rawData raw request data of labels
  */
 function processCategory(rawData) {
   const data = rawData
@@ -117,9 +129,9 @@ async function download() {
   
   try {
     // need to use pagination because by default only first 30 items are listed
-    let data = tools.paginate("GET /repos/:owner/:repo/issues", {
-    owner, repo, sort: 'updated'}).then(issues => {return issues});
-    
+    let data = await tools.paginate("GET /repos/:owner/:repo/issues", {
+      owner, repo, sort: 'updated'})
+      
     // let data = await tools.issues.listForRepo({
     //   owner, repo, sort: 'updated'
     // })
@@ -160,13 +172,13 @@ async function download() {
 /**
  * Write data to home page read me.
  * @param {Array} issues issue list
- * @param {Array} milestones milestone list
+ * @param {Array} labels label list
  */
-function writeHomePageReadMe(issues, milestones) {
+function writeHomePageReadMe(issues, labels) {
   const postsData = processPost(issues)
-  let mData = processCategory(milestones)
+  let mData = processCategory(labels)
 
-  // group issues by milestone
+  // group issues by label
   let issuesGounpByMs = {}
   issues.forEach(issue => {
     if (!issue.labels) return
@@ -190,8 +202,8 @@ function writeHomePageReadMe(issues, milestones) {
     link: `/`
   }].concat(mData)
 
-  // merge issues to milestones
-  milestones = milestones.map(m => {
+  // merge issues to labels
+  labels = labels.map(m => {
     return {
       ...m,
       issues: issuesGounpByMs[m.name] || []
@@ -207,34 +219,37 @@ function writeHomePageReadMe(issues, milestones) {
   })
   const readMeText = `---\n${readMeMeta}\n---`
   const readmePath = path.resolve(__dirname, '../src')
-  fs.writeFile(path.resolve(readmePath, './README.md'), readMeText, () => {})
+  fs.writeFileSync(path.resolve(readmePath, './README.md'), readMeText, () => {})
 
-  // write milestones
-  const mPath = path.resolve(__dirname, '../src/categories')
-  const files = fs.readdirSync(mPath)
-  // delete old files
-  files.forEach(filename => {
-    if (filename.endsWith('md')) {
-      fs.unlinkSync(path.resolve(mPath, filename), () => {})
-    }
-  })
+  // use labels to filter posts in frontpage rather than 
+  // have separate categories
 
-  log('[writing] writing categories')
-  // write new files
-  milestones.forEach(m => {
-    const issueData = processPost(m.issues)
-    const mRawData = {
-      slogan: {
-        main: m.name,
-        sub: m.description
-      },
-      posts: issueData,
-      categories: mData
+  // write labels
+  // const mPath = path.resolve(__dirname, '../src/categories')
+  // const files = fs.readdirSync(mPath)
+  // // delete old files
+  // files.forEach(filename => {
+  //   if (filename.endsWith('md')) {
+  //     fs.unlinkSync(path.resolve(mPath, filename), () => {})
+  //   }
+  // })
+
+  // log('[writing] writing categories')
+  // // write new files
+  // labels.forEach(m => {
+  //   const issueData = processPost(m.issues)
+  //   const mRawData = {
+  //     slogan: {
+  //       main: m.name,
+  //       sub: m.description
+  //     },
+  //     posts: issueData,
+  //     categories: mData
       
-    }
-    const mText = ['---', JSON.stringify(mRawData), '---'].join('\n')
-    fs.writeFile(path.resolve(mPath, `${m.name}.md`), mText, () => {})
-  })
+  //   }
+  //   const mText = ['---', JSON.stringify(mRawData), '---'].join('\n')
+  //   fs.writeFile(path.resolve(mPath, `${m.name}.md`), mText, () => {})
+  // })
 }
 
 /**
@@ -249,7 +264,7 @@ function generateFeed(issues) {
     description: "Blog by King of Infinite Space",
     link: "https://king-of-infinite-space.github.io",
     feedLinks: {
-      atom: "https://king-of-infinite-space.github.io/feed/feed.atom"
+      atom: "https://king-of-infinite-space.github.io/feed.atom"
     },
     author: {
       name: "King of Infinite Space"
@@ -257,7 +272,7 @@ function generateFeed(issues) {
   });
   let feedCount = 0
   postsData.forEach(post => {
-    if (feedCount < 5) {
+    if (feedCount < 5 && !post.milestone) {
       feed.addItem({
         title: post.title,
         // id: post.number,
@@ -271,11 +286,11 @@ function generateFeed(issues) {
         ],
         date: new Date(post.updated_at),
       });
+      feedCount = feedCount + 1
     }
-    feedCount = feedCount + 1
   });
 
-  const feedPath = path.resolve(__dirname, '../src/.vuepress/public/feed')
+  const feedPath = path.resolve(__dirname, '../src/.vuepress/public/')
   if (!fs.existsSync(feedPath)){
       fs.mkdirSync(feedPath, {recursive: true});
     }
@@ -285,10 +300,9 @@ function generateFeed(issues) {
 
 async function saveToFile() {
   const pData = JSON.parse(fs.readFileSync(issueFile))
-  // log(mData)
   const mData = JSON.parse(fs.readFileSync(cateFile))
-  formatDocument(pData.data)
-  writeHomePageReadMe(pData.data, mData.data)
+  formatDocument(pData)
+  writeHomePageReadMe(pData, mData.data) // frontmatter for homepage
   generateFeed(pData.data)
 }
 

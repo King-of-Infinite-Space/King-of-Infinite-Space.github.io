@@ -40,7 +40,7 @@ let mainConfig = {
       },
       {
         name: 'RSS',
-        link: "/feed/feed.atom"
+        link: "/feed.atom"
       }
     ],
     headTitle: [],
