@@ -5,7 +5,7 @@
       <div class="card-content">{{ desc }}...</div>
     </a>
       <div class="card-header">
-        <div class="card-date">{{ update }}</div>
+        <div class="card-date">{{ showDate }}</div>
         <div class="dot"></div>
         <div class="card-tag">
           <span v-for="label in tag">{{ label }}</span>
@@ -24,6 +24,7 @@ export default {
     tag: Array,
     date: String,
     update: String,
+    showDate: String,
     number: Number,
     link: String
   }
@@ -37,7 +38,7 @@ primary-color = darken(red, 20)
 
 .card
   line-height 1.6
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   margin-bottom: 12px;
   border-bottom: 1px dotted rgba(0,0,0,0.1)
 

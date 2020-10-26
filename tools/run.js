@@ -32,48 +32,12 @@ function log(str) {
  * Format date string to YYYY/MM/DD
  * @param {String} date a date string
  */
-function fmtDate(date) {
+function fmtDate(date, separator = '/') {
   const theDate = new Date(date)
   const year = theDate.getFullYear()
   const month = (theDate.getMonth() + 1).toString().padStart(2, '0')
   const day = theDate.getDate().toString().padStart(2, '0')
-  return [year, month, day].join('-')
-}
-
-/**
- * Write issues to markdown file.
- * @param {Object} rawData raw request data object.
- */
-function formatDocument(rawData) {
-  const data = rawData
-  log(`[summary] ${data.length} issues`)
-
-  const postPath = path.resolve(__dirname, '../src/post')
-
-  // process post file
-  data.forEach((issue, i) => {
-    log(`[processing ${i + 1} of ${data.length}] ${issue.number}.${issue.title}`)
-    ms = issue.milestone ? issue.milestone.title : ''
-    const fm = [
-      `layout: PostLayout`,
-      `id: ${issue.number}`,
-      `date: ${fmtDate(issue.created_at)}`,
-      `update: ${fmtDate(issue.updated_at)}`,
-      `comments: ${issue.comments}`,
-      `author: ${issue.user.login}`,
-      `milestone: ${ms}`,
-      `label: ${issue.labels.map(l => {return l.name})}`
-    ].join('\n')
-    fn = uslug(fmtDate(issue.created_at).slice(0,-2)+'-'+issue.title)
-    // yyyy-mm-title
-    const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
-    if (!fs.existsSync(postPath)){
-      fs.mkdirSync(postPath);
-    }
-    fs.writeFileSync(path.resolve(postPath, `./${fn}.md`), markdownText, () => {})
-  })
-
-  log('[post] issues have been written to md files.')
+  return [year, month, day].join(separator)
 }
 
 /**
@@ -83,20 +47,26 @@ function formatDocument(rawData) {
 function processPost(data) {
   // process post summary
   const postsData = data.map(issue => {
+    let fn = fmtDate(issue.created_at,'-').slice(0,-2)+uslug(issue.title.replace(/\/|\./,'-'))
     return {
       title: issue.title,
       desc: markdownToTxt(stripHtml(issue.body.slice(0, 300)).result,{escapeHtml: false}).slice(0,100),
       label: issue.labels ? Array.from(issue.labels, x => x.name) : [],
       milestone: issue.milestone ? issue.milestone.title : '',
-      date: fmtDate(issue.created_at),
-      update: fmtDate(issue.updated_at),
+      created_at_str: fmtDate(issue.created_at),
+      updated_at_str: fmtDate(issue.updated_at),
       updated_at: issue.updated_at,
       created_at: issue.created_at,
       number: issue.number,
-      link: `${base}posts/${issue.number}.html`
+      link: `${base}posts/${fn}.html`,
+      comments: issue.comments,
+      author: issue.user.login,
+      permalink: `/${fn}`,
+      sourceLink: `https://github.com/King-of-Infinite-Space/thoughts/issues/${issue.number}`,
+      filename: fn,
+      body: issue.body
     }
   })
-
   return postsData
 }
 
@@ -120,6 +90,36 @@ function processCategory(rawData) {
   })
 
   return mData
+}
+
+/**
+ * Write issues to markdown file.
+ * @param {Object} rawData raw request data object.
+ */
+function formatDocument(rawData) {
+  const data = processPost(rawData)
+  log(`[summary] ${data.length} issues`)
+
+  const postPath = path.resolve(__dirname, '../src/posts')
+
+  // process post file
+  data.forEach((issue, i) => {
+    log(`[processing ${i + 1} of ${data.length}] ${issue.number}.${issue.filename}`)
+    let fm = [`layout: PostLayout`]
+    for (const [key, value] of Object.entries(issue)) {
+      if (key != 'body') fm.push(`${key}: ${value}`);
+    }
+    fm = fm.join('\n')
+    
+    // yyyy-mm-title
+    const markdownText = `---\n${fm}\n---\n# ${issue.title}\n\n${issue.body}`
+    if (!fs.existsSync(postPath)){
+      fs.mkdirSync(postPath);
+    }
+    fs.writeFileSync(path.resolve(postPath, `./${issue.filename}.md`), markdownText, () => {})
+  })
+
+  log('[post] issues have been written to md files.')
 }
 
 async function download() {
@@ -273,6 +273,7 @@ function generateFeed(issues) {
   let feedCount = 0
   postsData.forEach(post => {
     if (feedCount < 5 && !post.milestone) {
+      // don't create feed for updating issues
       feed.addItem({
         title: post.title,
         // id: post.number,
@@ -303,7 +304,7 @@ async function saveToFile() {
   const mData = JSON.parse(fs.readFileSync(cateFile))
   formatDocument(pData)
   writeHomePageReadMe(pData, mData.data) // frontmatter for homepage
-  generateFeed(pData.data)
+  generateFeed(pData)
 }
 
 async function main() {

@@ -14,37 +14,39 @@
       </div>
     </div>
     <div class="content">
-      <div class="posts articles">
+      <div class="posts">
         <LoadingCard />
-        <PostCard v-for="(post, index) in articles_shown" v-bind:key="index"
-          v-bind:title="post.title" v-bind:desc="post.desc"
-          v-bind:tag="post.tag" v-bind:date="post.date" v-bind:update="post.update"
+        <PostCard v-for="(post, index) in articles_shown" v-bind:key="post.title"
+          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:tag="post.tag"
+          v-bind:date="post.date" v-bind:update="post.update" v-bind:showDate="post.date"
           v-bind:number="post.number" v-bind:link="post.link"/>
-      </div>
-      <div class="pages article-pages">
-        <span class="page-button left" @click="change_page(-1,articles_pn,articles_max)">&#60;</span>
-        <span class="page-number">{{articles_pn}} / {{articles_max}}</span>
-        <span class="page-button right" @click="change_page(1,articles_pn,articles_max)">&#62;</span>
-      </div>
-      <div class="pages moment-pages">
-        <span class="page-button left" @click="change_page(-1,moments_pn,moments_max)">&#60;</span>
-        <span class="page-number">{{moments_pn}} / {{moments_max}}</span>
-        <span class="page-button right" @click="change_page(1,moments_pn,moments_max)">&#62;</span>
-      </div>
-      <div class="posts moments">
-        <LoadingCard />
-        <PostCard v-for="(post, index) in moments_shown" v-bind:key="index"
-          v-bind:title="post.title" v-bind:desc="post.desc"
-          v-bind:tag="post.tag" v-bind:date="post.date" v-bind:update="post.update"
+        <div class="pages-container">
+          <div class="pages article-pages">
+            
+            <span class="page-button left" v-bind:class="{'transparent': articles_pn == 1}" @click="articles_change_page(-1)">&#60;</span>
+            <span class="page-number">{{articles_pn}} / {{articles_max}}</span>
+            <span class="page-button right" v-bind:class="{'transparent': articles_pn == articles_max}" @click="articles_change_page(1)">&#62;</span>
+            <span>&nbsp;文章⇧</span>
+          </div>
+          <div class="pages moment-pages">
+            <span>⇩漫谈&nbsp;</span>
+            <span class="page-button left" v-bind:class="{'transparent': moments_pn == 1}" @click="moments_change_page(-1)">&#60;</span>
+            <span class="page-number">{{moments_pn}} / {{moments_max}}</span>
+            <span class="page-button right" v-bind:class="{'transparent': moments_pn == moments_max}" @click="moments_change_page(1)">&#62;</span>
+          </div>
+        </div>
+        <PostCard v-for="(post, index) in moments_shown" v-bind:key="post.title"
+          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:tag="post.tag"
+          v-bind:date="post.date" v-bind:update="post.update" v-bind:showDate="post.update"
           v-bind:number="post.number" v-bind:link="post.link"/>
       </div>
       <div class="side">
         <div class="side-category">
           <LoadingCategory />
-          <Category v-for="(category, index) in labels" v-bind:key="index" 
-            v-bind:class="{selected: labels_selected.includes(category)}"
+          <Category v-for="(category, index) in labels" v-bind:key="category.name" 
+            v-bind:selected="is_label_selected(category.name)"
             v-bind:name="category.name" v-bind:count="category.count"
-            v-bind:desc="category.desc" v-bind:link="category.link"/>
+            v-bind:desc="category.desc" @labelClicked="select_label(category.name)"/>
         </div>
         <!-- <div class="side-bag"></div> -->
       </div>
@@ -62,8 +64,10 @@ export default {
       moments: [],
       labels: [],
       labels_selected: [],
-      moments_pp: 5,
-      articles_pp: 10,
+      moments_selected: [],
+      articles_selected: [],
+      moments_pp: 3,
+      articles_pp: 6,
       moments_pn: 1,
       articles_pn: 1,
     }
@@ -88,6 +92,8 @@ export default {
     })
     this.articles.sort((a,b) => parseInt(b.created_at.replaceAll('-','')) - parseInt(a.created_at.replaceAll('-','')))
     this.labels = this.$frontmatter.categories.sort((a,b) => b.count - a.count)
+    this.articles_selected = this.articles
+    this.moments_selected = this.moments
   },
 
   computed: {
@@ -95,48 +101,60 @@ export default {
       return Math.ceil(this.moments_selected.length / this.moments_pp)},
     articles_max: function(){
       return Math.ceil(this.articles_selected.length / this.articles_pp)},
-    moments_selected: function(){
-      return this.moments.filter(item => {
-        return this.have_labels(item, this.labels_selected)
-      })
-    },
+    
     moments_shown: function () {
-      start = (this.moments_pn - 1) * this.moments_pp + 1
-      end = this.moments_pn * this.moments_pp
+      let start = (this.moments_pn - 1) * this.moments_pp + 1
+      let end = this.moments_pn * this.moments_pp
       return this.moments_selected.slice(start-1,end)
     },
-    articles_selected: function(){
-      return this.articles.filter(item => {
-        return this.have_labels(item, this.labels_selected)
-      })
-    },
+
     articles_shown: function () {
-      start = (this.articles_pn - 1) * this.articles_pp + 1
-      end = this.articles_pn * this.articles_pp
+      let start = (this.articles_pn - 1) * this.articles_pp + 1
+      let end = this.articles_pn * this.articles_pp
       return this.articles_selected.slice(start-1,end)
     },
   },
 
   methods: {
     select_label(label) {
-      const idx = this.labels_selected.indexOf(label)
-      if (idx > -1) {
-        this.labels_selected.splice(idx, 1);
-      } else {
-        this.labels_selected.push(label)
+      if (label == '全部文章') {
+        this.labels_selected = []
+      } 
+      else {
+        const idx = this.labels_selected.indexOf(label)
+        if (idx > -1) {this.labels_selected.splice(idx, 1);} 
+        else {this.labels_selected.push(label)}
       }
+      this.filter_posts()
+      this.moments_pn = 1
+      this.articles_pn = 1
     },
+
+    is_label_selected (label) {return this.labels_selected.includes(label)},
+
+    filter_posts (){
+      this.articles_selected = this.articles.filter(item => {
+        return this.have_labels(item.label, this.labels_selected)
+        })
+      this.moments_selected = this.moments.filter(item => {
+        return this.have_labels(item.label, this.labels_selected)
+        })
+    },
+
     change_page(c, pn, pmax){
       if (c < 0) { return Math.max(pn+c,1)}
       else { return Math.min(pn+c, pmax)}
     },
     moments_change_page (c) { this.moments_pn = this.change_page(c, this.moments_pn, this.moments_max)},
     articles_change_page (c) { this.articles_pn = this.change_page(c, this.articles_pn, this.articles_max)},
-    have_labels (issue, labels) {
-      labels.forEach(item => {
-        if (!issue.label.includes(item)) return false
+    
+    have_labels (issue_labels, selected_labels) {
+      let selected = true
+      // console.log(issue_labels)
+      selected_labels.forEach(item => {
+        if (!issue_labels.includes(item)) selected = false
       })
-      return true
+      return selected
     }
   }
 
@@ -220,6 +238,22 @@ export default {
     width 100%
     min-height 400px
 
+    .pages-container
+      display: flex
+      justify-content: space-evenly
+      padding-bottom: 15px
+      padding-top: 5px
+
+      .pages
+        color: #999999
+        padding-bottom: 5px
+        border-bottom: 1px dotted rgba(0,0,0,0.3)
+        font-weight: 300
+
+        .page-button
+          font-weight: normal
+          font-size: 1.2em
+
   .side
     box-sizing border-box
     min-width 140px
@@ -227,9 +261,6 @@ export default {
 
   .side-category
     padding 0 
-    
-    .category selected
-      border 2px solid blue
 
   .side-bag
     box-shadow 0 -3px 2px rgba(0, 0, 0, 0.03)
@@ -238,7 +269,9 @@ export default {
     background white
     border-bottom-left-radius 10px
     border-bottom-right-radius 10px
-    border-top 
+
+.transparent
+  opacity 0
 
 @media screen and (max-width 576px)
   .banner

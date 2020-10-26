@@ -1,6 +1,6 @@
 <template>
   <a :href="link">
-    <div class="category">
+    <div class="category" @click="$emit('labelClicked')" v-bind:class="{'selected': selected}">
       <div class="category-header">
         <div class="category-name">{{ name }}<sub>{{ count }}</sub></div>
         <!-- <div class="category-count">{{ count }}</div> -->
@@ -18,7 +18,8 @@ export default {
     name: String,
     count: Number,
     desc: String,
-    link: String
+    link: String,
+    selected: Boolean
   }
 }
 </script>
@@ -75,6 +76,9 @@ a
   transform scale(1.1,1.1)
   .category-desc
     opacity 1
+
+.selected
+  border 2px solid blue
 
  
 @media screen and (max-width 576px)

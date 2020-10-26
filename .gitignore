@@ -12,3 +12,4 @@ tmp
 **/Icon[]
 test.js
 *.md
+src/.vuepress/public/feed.atom

@@ -8,12 +8,13 @@
 
     <div class="info">
       <!-- <span class="author">{{$frontmatter.author}}</span> -->
-      <span class="date">{{$frontmatter.date}}发布</span>
-      <span class="date" v-if="$frontmatter.update !== $frontmatter.date">{{$frontmatter.update}}更新</span>
+      <span class="date">{{$frontmatter.created_at_str}}发布</span>
+      <span class="date" v-if="$frontmatter.updated_at_str !== $frontmatter.created_at_str">{{$frontmatter.updated_at_str}}更新</span>
       <span class="comments">{{$frontmatter.comments}}评论</span>
       <span class="count" v-if="$themeConfig.pageCount">
         <span id="busuanzi_value_page_pv"></span>浏览
       </span>
+      <a href="$frontmatter.sourceLink">查看来源</a>
     </div>
 
     <div class="post-content">
