@@ -7,9 +7,9 @@ const { owner, repo } = vssueConfig // get issue from another repo
 const issueFile = path.resolve(__dirname, './issues.json')
 const cateFile = path.resolve(__dirname, './cates.json')
 const Feed = require('feed').Feed;
-const { markdownToTxt } = require('markdown-to-txt'); 
 const uslug = require("uslug");
 const stripHtml =require("string-strip-html");
+const removeMd = require('remove-markdown');
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -47,10 +47,13 @@ function fmtDate(date, separator = '/') {
 function processPost(data) {
   // process post summary
   const postsData = data.map(issue => {
-    let fn = fmtDate(issue.created_at,'-').slice(0,-2)+uslug(issue.title.replace(/\/|\./,'-'))
+    let fn = fmtDate(issue.created_at,'-').slice(0,-2)+uslug(issue.title.replace(/\/|\./g,'-'))
+    let descMd = stripHtml(issue.body).result
+    let descText = removeMd(descMd).slice(0,100).split("\n", 1)[0]
+
     return {
       title: issue.title,
-      desc: markdownToTxt(stripHtml(issue.body.slice(0, 300)).result,{escapeHtml: false}).slice(0,100),
+      desc: descText,
       label: issue.labels ? Array.from(issue.labels, x => x.name) : [],
       milestone: issue.milestone ? issue.milestone.title : '',
       created_at_str: fmtDate(issue.created_at),
@@ -61,7 +64,7 @@ function processPost(data) {
       link: `${base}posts/${fn}.html`,
       comments: issue.comments,
       author: issue.user.login,
-      permalink: `/${fn}`,
+      permalink: `/posts/${fn}`,
       sourceLink: `https://github.com/King-of-Infinite-Space/thoughts/issues/${issue.number}`,
       filename: fn,
       body: issue.body
@@ -106,8 +109,13 @@ function formatDocument(rawData) {
   data.forEach((issue, i) => {
     log(`[processing ${i + 1} of ${data.length}] ${issue.number}.${issue.filename}`)
     let fm = [`layout: PostLayout`]
-    for (const [key, value] of Object.entries(issue)) {
-      if (key != 'body') fm.push(`${key}: ${value}`);
+    for (let [key, value] of Object.entries(issue)) {
+      if (key == 'title' | key == 'desc') {
+        value = `"${value.replace(/"/g, '\\"')}"` // escape double quotes
+      }
+      if (key != 'body') {
+        fm.push(`${key}: ${value}`)
+      }
     }
     fm = fm.join('\n')
     
@@ -197,8 +205,8 @@ function writeHomePageReadMe(issues, labels) {
   })
   mData = [{
     name: '全部文章',
-    count: totalCount,
-    desc: `共发布了 ${totalCount} 篇文章。`,
+    count: postsData.length,
+    desc: `共发布了 ${postsData.length} 篇文章。`,
     link: `/`
   }].concat(mData)
 
@@ -285,7 +293,7 @@ function generateFeed(issues) {
             name: "King of Infinite Space"
           }
         ],
-        date: new Date(post.updated_at),
+        date: new Date(post.created_at),
       });
       feedCount = feedCount + 1
     }

@@ -17,8 +17,8 @@
       <div class="posts">
         <LoadingCard />
         <PostCard v-for="(post, index) in articles_shown" v-bind:key="post.title"
-          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:tag="post.tag"
-          v-bind:date="post.date" v-bind:update="post.update" v-bind:showDate="post.date"
+          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:labels="post.label"
+          v-bind:date="post.created_at_str" v-bind:update="post.updated_at_str" v-bind:showDate="post.updated_at_str"
           v-bind:number="post.number" v-bind:link="post.link"/>
         <div class="pages-container">
           <div class="pages article-pages">
@@ -36,8 +36,8 @@
           </div>
         </div>
         <PostCard v-for="(post, index) in moments_shown" v-bind:key="post.title"
-          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:tag="post.tag"
-          v-bind:date="post.date" v-bind:update="post.update" v-bind:showDate="post.update"
+          v-bind:title="post.title" v-bind:desc="post.desc" v-bind:labels="post.label"
+          v-bind:date="post.created_at_str" v-bind:update="post.updated_at_str" v-bind:showDate="post.updated_at_str"
           v-bind:number="post.number" v-bind:link="post.link"/>
       </div>
       <div class="side">
@@ -256,8 +256,8 @@ export default {
 
   .side
     box-sizing border-box
-    min-width 140px
-    margin-left 20px
+    min-width 120px
+    margin-left 30px
 
   .side-category
     padding 0 

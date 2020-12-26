@@ -72,15 +72,15 @@ a
     sub 
       font-size x-small
 
-.category:hover
-  transform scale(1.1,1.1)
-  .category-desc
-    opacity 1
-
 .selected
-  border 2px solid blue
+  border 1px dashed rgba(0,0,0,0.5)
 
- 
+@media screen and (min-width 576px)
+  .category:hover
+    transform scale(1.1,1.1)
+    .category-desc
+      opacity 1
+
 @media screen and (max-width 576px)
   .category
     margin-right 3px
