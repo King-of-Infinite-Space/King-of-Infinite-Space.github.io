@@ -63,10 +63,10 @@ function processPost(data) {
       updated_at: issue.updated_at,
       created_at: issue.created_at,
       number: issue.number,
-      link: `${base}posts/${fn}.html`,
+      // link: `${base}posts/${fn}.html`,
       comments: issue.comments,
       author: issue.user.login,
-      // permalink: `/posts/${fn}`,
+      permalink: `${base}posts/${fn}.html`,
       sourceLink: `https://github.com/${vssueConfig.owner}/${vssueConfig.repo}/issues/${issue.number}`,
       filename: fn,
       body: issue.body

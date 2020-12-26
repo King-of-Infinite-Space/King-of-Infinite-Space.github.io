@@ -19,7 +19,7 @@
         <PostCard v-for="(post, index) in articles_shown" v-bind:key="post.title"
           v-bind:title="post.title" v-bind:desc="post.desc" v-bind:labels="post.label"
           v-bind:date="post.created_at_str" v-bind:update="post.updated_at_str" v-bind:showDate="post.updated_at_str"
-          v-bind:number="post.number" v-bind:link="post.link"/>
+          v-bind:number="post.number" v-bind:link="post.permalink"/>
         <div class="pages-container">
           <div class="pages article-pages">
             
@@ -38,7 +38,7 @@
         <PostCard v-for="(post, index) in moments_shown" v-bind:key="post.title"
           v-bind:title="post.title" v-bind:desc="post.desc" v-bind:labels="post.label"
           v-bind:date="post.created_at_str" v-bind:update="post.updated_at_str" v-bind:showDate="post.updated_at_str"
-          v-bind:number="post.number" v-bind:link="post.link"/>
+          v-bind:number="post.number" v-bind:link="post.permalink"/>
       </div>
       <div class="side">
         <div class="side-category">
