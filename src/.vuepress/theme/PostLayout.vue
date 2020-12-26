@@ -14,14 +14,14 @@
       <span class="count" v-if="$themeConfig.pageCount">
         <span id="busuanzi_value_page_pv"></span>浏览
       </span>
-      <a href="$frontmatter.sourceLink">查看来源</a>
+      <a v-bind:href="$frontmatter.sourceLink">查看来源</a>
     </div>
 
     <div class="post-content">
       <Content />
     </div>
 
-    <Vssue title="Vssue Demo" :issueId="$frontmatter.id" />
+    <Vssue title="Vssue Demo" :issueId="$frontmatter.number" />
   </div>
   <Footer />
 </div>
