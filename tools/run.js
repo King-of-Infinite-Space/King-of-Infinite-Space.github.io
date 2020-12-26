@@ -11,7 +11,10 @@ const uslug = require("uslug");
 const stripHtml =require("string-strip-html");
 const removeMd = require('remove-markdown');
 
-
+let md = require('markdown-it')({
+  html: true,
+  breaks: true
+});
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -272,6 +275,7 @@ function generateFeed(issues) {
   const feed = new Feed({
     title: title,
     description: description,
+    id: `https://${repoConfig.owner}.github.io${base}`,
     link: `https://${repoConfig.owner}.github.io${base}`,
     feedLinks: {
       atom: `https://${repoConfig.owner}.github.io${feedLink}`
@@ -286,10 +290,9 @@ function generateFeed(issues) {
       // don't create feed for updating issues
       feed.addItem({
         title: post.title,
-        // id: post.number,
-        link: feed.options.link + post.link,
+        id: feed.options.link + post.permalink,
         description: post.desc,
-        content: post.desc,
+        content: md.render(post.body),
         author: [
           {
             name: post.author
