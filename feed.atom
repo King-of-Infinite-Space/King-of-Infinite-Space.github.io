@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id/>
+    <title>the Universe in a Nutshell</title>
+    <updated>2020-12-26T05:33:42.713Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>King of Infinite Space</name>
+    </author>
+    <link rel="alternate" href="https://king-of-infinite-space.github.io"/>
+    <link rel="self" href="https://king-of-infinite-space.github.io/feed.atom"/>
+    <subtitle>Blog by King of Infinite Space</subtitle>
+    <entry>
+        <title type="html"><![CDATA[永遇乐 怀巴萨]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/2020-09-永遇乐-怀巴萨.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/2020-09-永遇乐-怀巴萨.html"/>
+        <updated>2020-09-28T02:35:28.000Z</updated>
+        <summary type="html"><![CDATA[文字版]]></summary>
+        <content type="html"><![CDATA[文字版]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[无题]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/2020-12-无题.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/2020-12-无题.html"/>
+        <updated>2020-12-10T01:52:35.000Z</updated>
+        <summary type="html"><![CDATA[日子被揉成一团]]></summary>
+        <content type="html"><![CDATA[日子被揉成一团]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《是但求其爱》歌词断句的理解]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/2020-11-是但求其爱歌词断句的理解.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/2020-11-是但求其爱歌词断句的理解.html"/>
+        <updated>2020-11-29T21:47:53.000Z</updated>
+        <summary type="html"><![CDATA[粤语新歌《是但求其爱》由林家谦作曲、小克作词、陈奕迅演唱。这首歌对于「爱」是什么以及人们对它的态度进行了灵魂拷问。]]></summary>
+        <content type="html"><![CDATA[粤语新歌《是但求其爱》由林家谦作曲、小克作词、陈奕迅演唱。这首歌对于「爱」是什么以及人们对它的态度进行了灵魂拷问。]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[VAR: a second look]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/2020-10-var-a-second-look.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/2020-10-var-a-second-look.html"/>
+        <updated>2020-10-17T21:14:30.000Z</updated>
+        <summary type="html"><![CDATA[前言]]></summary>
+        <content type="html"><![CDATA[前言]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[从国语粤语声调说起]]></title>
+        <id>https://king-of-infinite-space.github.io/posts/2020-10-从国语粤语声调说起.html</id>
+        <link href="https://king-of-infinite-space.github.io/posts/2020-10-从国语粤语声调说起.html"/>
+        <updated>2020-10-14T01:24:51.000Z</updated>
+        <summary type="html"><![CDATA[最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。网上冲浪总是被一波带走，然后摸条大鱼回来。]]></summary>
+        <content type="html"><![CDATA[最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。网上冲浪总是被一波带走，然后摸条大鱼回来。]]></content>
+        <author>
+            <name>King of Infinite Space</name>
+        </author>
+    </entry>
+</feed>
