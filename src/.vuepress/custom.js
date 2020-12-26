@@ -19,9 +19,10 @@ let mainConfig = {
   },
 
   title: "the Universe in a Nutshell",
-  description: "no desc",
+  description: "",
   customDomain: "",
   base: "/",
+  feedLink: "/feed.atom",
 
   slogan: {
     main: "the Universe in a Nutshell",

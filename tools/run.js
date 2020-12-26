@@ -1,7 +1,7 @@
 const github = require('@actions/github')
 const fs = require('fs')
 const path = require('path')
-const { vssueConfig, repoConfig, slogan, base } = require('../src/.vuepress/config')
+const { vssueConfig, repoConfig, title, description, feedLink, slogan, base, themeConfig } = require('../src/.vuepress/config')
 
 const { owner, repo } = vssueConfig // get issue from another repo
 const issueFile = path.resolve(__dirname, './issues.json')
@@ -10,6 +10,8 @@ const Feed = require('feed').Feed;
 const uslug = require("uslug");
 const stripHtml =require("string-strip-html");
 const removeMd = require('remove-markdown');
+
+
 
 let token = null
 if (process.env.NODE_ENV == 'local') {
@@ -64,8 +66,8 @@ function processPost(data) {
       link: `${base}posts/${fn}.html`,
       comments: issue.comments,
       author: issue.user.login,
-      permalink: `/posts/${fn}`,
-      sourceLink: `https://github.com/King-of-Infinite-Space/thoughts/issues/${issue.number}`,
+      // permalink: `/posts/${fn}`,
+      sourceLink: `https://github.com/${vssueConfig.owner}/${vssueConfig.repo}/issues/${issue.number}`,
       filename: fn,
       body: issue.body
     }
@@ -268,14 +270,14 @@ function generateFeed(issues) {
   const postsData = processPost(issues)
   log('[writing] writing data to feed')
   const feed = new Feed({
-    title: "the Universe in a Nutshell",
-    description: "Blog by King of Infinite Space",
-    link: "https://king-of-infinite-space.github.io",
+    title: title,
+    description: description,
+    link: `https://${repoConfig.owner}.github.io${base}`,
     feedLinks: {
-      atom: "https://king-of-infinite-space.github.io/feed.atom"
+      atom: `https://${repoConfig.owner}.github.io${feedLink}`
     },
     author: {
-      name: "King of Infinite Space"
+      name: vssueConfig.owner
     }
   });
   let feedCount = 0
@@ -290,7 +292,7 @@ function generateFeed(issues) {
         content: post.desc,
         author: [
           {
-            name: "King of Infinite Space"
+            name: post.author
           }
         ],
         date: new Date(post.created_at),
