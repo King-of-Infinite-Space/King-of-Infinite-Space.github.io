@@ -3,7 +3,7 @@ name: build and publish
 on:
   push:
     branches:
-      - source
+      - new
   repository_dispatch:
 
 jobs:
