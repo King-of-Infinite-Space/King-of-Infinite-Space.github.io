@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://King-of-Infinite-Space.github.io/</id>
     <title>the Universe in a Nutshell</title>
-    <updated>2020-12-27T00:04:45.492Z</updated>
+    <updated>2020-12-27T00:19:52.439Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>King-of-Infinite-Space</name>
@@ -11,8 +11,8 @@
     <link rel="self" href="https://King-of-Infinite-Space.github.io/feed.atom"/>
     <entry>
         <title type="html"><![CDATA[永遇乐 怀巴萨]]></title>
-        <id>https://King-of-Infinite-Space.github.io//posts/2020-09-永遇乐-怀巴萨.html</id>
-        <link href="https://King-of-Infinite-Space.github.io//posts/2020-09-永遇乐-怀巴萨.html"/>
+        <id>https://King-of-Infinite-Space.github.io/posts/2020-09-永遇乐-怀巴萨.html</id>
+        <link href="https://King-of-Infinite-Space.github.io/posts/2020-09-永遇乐-怀巴萨.html"/>
         <updated>2020-09-28T02:35:28.000Z</updated>
         <summary type="html"><![CDATA[文字版]]></summary>
         <content type="html"><![CDATA[<img src='https://user-images.githubusercontent.com/27502578/94377191-6532a880-00ed-11eb-9728-4ee6329f5f9a.png' width=360>
@@ -51,8 +51,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[无题]]></title>
-        <id>https://King-of-Infinite-Space.github.io//posts/2020-12-无题.html</id>
-        <link href="https://King-of-Infinite-Space.github.io//posts/2020-12-无题.html"/>
+        <id>https://King-of-Infinite-Space.github.io/posts/2020-12-无题.html</id>
+        <link href="https://King-of-Infinite-Space.github.io/posts/2020-12-无题.html"/>
         <updated>2020-12-10T01:52:35.000Z</updated>
         <summary type="html"><![CDATA[日子被揉成一团]]></summary>
         <content type="html"><![CDATA[<p>日子被揉成一团<br>
@@ -79,8 +79,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[《是但求其爱》歌词断句的理解]]></title>
-        <id>https://King-of-Infinite-Space.github.io//posts/2020-11-是但求其爱歌词断句的理解.html</id>
-        <link href="https://King-of-Infinite-Space.github.io//posts/2020-11-是但求其爱歌词断句的理解.html"/>
+        <id>https://King-of-Infinite-Space.github.io/posts/2020-11-是但求其爱歌词断句的理解.html</id>
+        <link href="https://King-of-Infinite-Space.github.io/posts/2020-11-是但求其爱歌词断句的理解.html"/>
         <updated>2020-11-29T21:47:53.000Z</updated>
         <summary type="html"><![CDATA[粤语新歌《是但求其爱》由林家谦作曲、小克作词、陈奕迅演唱。这首歌对于「爱」是什么以及人们对它的态度进行了灵魂拷问。]]></summary>
         <content type="html"><![CDATA[<p>粤语新歌《是但求其爱》由林家谦作曲、小克作词、陈奕迅演唱。这首歌对于「爱」是什么以及人们对它的态度进行了灵魂拷问。</p>
@@ -125,8 +125,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[VAR: a second look]]></title>
-        <id>https://King-of-Infinite-Space.github.io//posts/2020-10-var-a-second-look.html</id>
-        <link href="https://King-of-Infinite-Space.github.io//posts/2020-10-var-a-second-look.html"/>
+        <id>https://King-of-Infinite-Space.github.io/posts/2020-10-var-a-second-look.html</id>
+        <link href="https://King-of-Infinite-Space.github.io/posts/2020-10-var-a-second-look.html"/>
         <updated>2020-10-17T21:14:30.000Z</updated>
         <summary type="html"><![CDATA[前言]]></summary>
         <content type="html"><![CDATA[<h4>前言</h4>
@@ -160,8 +160,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[从国语粤语声调说起]]></title>
-        <id>https://King-of-Infinite-Space.github.io//posts/2020-10-从国语粤语声调说起.html</id>
-        <link href="https://King-of-Infinite-Space.github.io//posts/2020-10-从国语粤语声调说起.html"/>
+        <id>https://King-of-Infinite-Space.github.io/posts/2020-10-从国语粤语声调说起.html</id>
+        <link href="https://King-of-Infinite-Space.github.io/posts/2020-10-从国语粤语声调说起.html"/>
         <updated>2020-10-14T01:24:51.000Z</updated>
         <summary type="html"><![CDATA[最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。网上冲浪总是被一波带走，然后摸条大鱼回来。]]></summary>
         <content type="html"><![CDATA[<p>最近复习了一下粤语拼音，顺便学习了声调与音高之间的关系，在这里整理一下。对语音学没有研究，如有错漏欢迎指正。<s>网上冲浪总是被一波带走，然后摸条大鱼回来。</s></p>
