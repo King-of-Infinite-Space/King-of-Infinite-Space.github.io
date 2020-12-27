@@ -291,6 +291,7 @@ function generateFeed(issues) {
       feed.addItem({
         title: post.title,
         id: feed.options.link + post.permalink,
+        link: feed.options.link + post.permalink,
         description: post.desc,
         content: md.render(post.body),
         author: [
